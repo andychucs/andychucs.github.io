@@ -1,0 +1,259 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>在阿里云服务器运行Dart Server的踩坑实录 | Gridea</title>
+<link rel="shortcut icon" href="https://blog.andypro.games//favicon.ico?v=1582945507117">
+<link href="https://cdn.remixicon.com/releases/v2.1.0/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://blog.andypro.games//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="在阿里云服务器运行Dart Server的踩坑实录 | Gridea - Atom Feed" href="https://blog.andypro.games//atom.xml">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+    <meta name="description" content="前言
+笔者从2019年9月开始接触Flutter，用Flutter来做Capstone的项目，彼时使用了内置数据存储markdown格式文档，再通过markdown插件展示的纯前台应用，现在将其作为毕业设计的一部分进行改造，首先要解决的是后..." />
+    <meta name="keywords" content="Dart,后端,Server" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  </head>
+  <body>
+    <div class="main">
+      <div class="main-content">
+        <div class="site-header">
+  <a href="https://blog.andypro.games/">
+  <img class="avatar" src="https://blog.andypro.games//images/avatar.png?v=1582945507117" alt="">
+  </a>
+  <h1 class="site-title">
+    Gridea
+  </h1>
+  <p class="site-description">
+    温故而知新
+  </p>
+  <div class="menu-container">
+    
+      
+        <a href="/" class="menu">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              在阿里云服务器运行Dart Server的踩坑实录
+            </h2>
+            <div class="post-info">
+              <span>
+                2020-02-20
+              </span>
+              <span>
+                3 min read
+              </span>
+              
+                <a href="https://blog.andypro.games/tag/1dVNqutlW" class="post-tag">
+                  # Dart
+                </a>
+              
+                <a href="https://blog.andypro.games/tag/HriExrbAv8" class="post-tag">
+                  # 后端
+                </a>
+              
+                <a href="https://blog.andypro.games/tag/rruZsVhp1B" class="post-tag">
+                  # Server
+                </a>
+              
+            </div>
+            
+              <img class="post-feature-image" src="https://tva1.sinaimg.cn/large/00831rSTly1gcd3b2z2tij317o0u0goj.jpg" alt="">
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <h2 id="前言">前言</h2>
+<p>笔者从2019年9月开始接触Flutter，用Flutter来做Capstone的项目，彼时使用了内置数据存储markdown格式文档，再通过markdown插件展示的纯前台应用，现在将其作为毕业设计的一部分进行改造，首先要解决的是后端使用什么语言的问题，我的备选方案有Python、Golang和Dart。本次就来尝试Dart Server吧。</p>
+<p>先说结论，目前不推荐把使用大量插件的WebApp部署在阿里云上，除非你的服务器位于境外且性能不错，使用自带库的简单服务端应用还是可以的。</p>
+<h2 id="准备">准备</h2>
+<p>阿里云轻量应用服务器，推荐使用Ubuntu和Debian，因为官方的下载只提供了这两种，但是我用的是Wordpress应用镜像，是CentOS系统，不过官方提供教程的两个一样也需要从谷歌的服务器下载sdk，还是推荐通过本地下载好再传输到服务器。</p>
+<h2 id="dart-sdk下载与配置环境变量">Dart SDK下载与配置环境变量</h2>
+<p>首先下载DartSDK，<a href="http://www.dartdoc.cn/tools/sdk/archive/">下载地址</a></p>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbr4uzpffkj30r707zgmv.jpg" alt="" loading="lazy"></figure>
+<p>使用命令<code>scp -r dartsdk-linux-x64-release.zip user@yourhost:/tmp</code>将你下载到本地的SDK上传到服务器的tmp路径，如果你和我一样在操作前重置过服务器，报错<code>Host key verification failed.</code>，删除know_host文件即可。</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbrlonx7lnj30p90epad0.jpg" alt="" loading="lazy"></figure>
+<p>shh到服务器，解压SDK到lib目录。</p>
+<pre><code class="language-shell">cd /tmp
+mv dartsdk-linux-x64-release.zip /usr/lib
+cd /usr/lib
+unzip dartsdk-linux-x64-release.zip 
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbrmb9he3cj30kh0bi768.jpg" alt="" loading="lazy"></figure>
+<p>复制路径，配置环境变量，测试一下没有问题。</p>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbrmdgvxzzj30os04i0t7.jpg" alt="" loading="lazy"></figure>
+<p>添加到.bashrc方便以后使用。</p>
+<figure data-type="image" tabindex="5"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbrmg34m2xj30k30bn75e.jpg" alt="" loading="lazy"></figure>
+<h2 id="创建第一个项目">创建第一个项目</h2>
+<p>创建我们的第一个http服务端项目。官方代码如下，<strong>需要注意的是阿里云服务端用户需要将InternetAddress.loopbackIPv4更改为你的服务器的内网地址，否则你将无法从外网访问你的http应用</strong>。在服务器控制台的ip地址可以看到它。</p>
+<pre><code class="language-dart">import 'dart:io';
+
+Future main() async {
+  // #docregion bind
+  var server = await HttpServer.bind(
+    InternetAddress.loopbackIPv4,//=&gt;172.000.000.000 内网地址
+    4040,
+  );
+  // #enddocregion bind
+  print('Listening on localhost:${server.port}');
+
+  // #docregion listen
+  await for (HttpRequest request in server) {
+    request.response.write('Hello, world!');
+    await request.response.close();
+  }
+  // #enddocregion listen
+}
+</code></pre>
+<p>直接运行即可，在客户端输入外网地址:端口号即可访问。</p>
+<figure data-type="image" tabindex="6"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbrmzzv65fj30ge0hc407.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="7"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbrnq4nirej30fq0cd0tr.jpg" alt="" loading="lazy"></figure>
+<h2 id="创建一个web-app">创建一个web app</h2>
+<p>通过下面代码安装webdev和stagehand</p>
+<pre><code class="language-shell"> pub global activate webdev
+ pub global activate stagehand
+</code></pre>
+<p>这里会要求你为.pub-cache配置环境变量，用给出的临时更改环境变量的命令即可。</p>
+<pre><code class="language-shell">export PATH=&quot;$PATH&quot;:&quot;$HOME/.pub-cache/bin&quot;
+</code></pre>
+<p>通过以下代码创建官方示例。</p>
+<pre><code class="language-shell"> mkdir quickstart
+ cd quickstart
+ stagehand web-simple
+ pub get
+</code></pre>
+<p>运行，指定hostname到内网地址，将0.0.0.0更改为你的服务器内网地址。</p>
+<pre><code class="language-shell">webdev serve --hostname 0.0.0.0
+</code></pre>
+<p>以上代码运行均需要一定时间，完成，去浏览器看看效果吧。</p>
+<figure data-type="image" tabindex="8"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbrnx7as9bj30oi09n762.jpg" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="9"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbrnz4312xj30f20bljs8.jpg" alt="" loading="lazy"></figure>
+<h2 id="后记">后记</h2>
+<p>前言中说到的不推荐在阿里云上部署Dart WebApp的原因如下图。创建和pub get实在是太消耗性能了。S</p>
+<figure data-type="image" tabindex="10"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbro6hb1dlj30hb0ljab3.jpg" alt="" loading="lazy"></figure>
+
+              </div>
+              <div class="toc-container">
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E5%87%86%E5%A4%87">准备</a></li>
+<li><a href="#dart-sdk%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">Dart SDK下载与配置环境变量</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE">创建第一个项目</a></li>
+<li><a href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAweb-app">创建一个web app</a></li>
+<li><a href="#%E5%90%8E%E8%AE%B0">后记</a></li>
+</ul>
+</li>
+</ul>
+
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://blog.andypro.games/post/hello-gridea">
+              <h3 class="post-title">
+                Hello Gridea
+              </h3>
+            </a>
+          </div>
+        
+
+        
+
+        <div class="site-footer">
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
+  <a class="rss" href="https://blog.andypro.games//atom.xml" target="_blank">
+    <i class="ri-rss-line"></i> RSS
+  </a>
+</div>
+
+      </div>
+    </div>
+
+    <script>
+      hljs.initHighlightingOnLoad()
+
+      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+      // This should probably be throttled.
+      // Especially because it triggers during smooth scrolling.
+      // https://lodash.com/docs/4.17.10#throttle
+      // You could do like...
+      // window.addEventListener("scroll", () => {
+      //    _.throttle(doThatStuff, 100);
+      // });
+      // Only not doing it here to keep this Pen dependency-free.
+
+      window.addEventListener("scroll", event => {
+        let fromTop = window.scrollY;
+
+        mainNavLinks.forEach((link, index) => {
+          let section = document.getElementById(decodeURI(link.hash).substring(1));
+          let nextSection = null
+          if (mainNavLinks[index + 1]) {
+            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+          }
+          if (section.offsetTop <= fromTop) {
+            if (nextSection) {
+              if (nextSection.offsetTop > fromTop) {
+                link.classList.add("current");
+              } else {
+                link.classList.remove("current");    
+              }
+            } else {
+              link.classList.add("current");
+            }
+          } else {
+            link.classList.remove("current");
+          }
+        });
+      });
+
+    </script>
+  </body>
+</html>
