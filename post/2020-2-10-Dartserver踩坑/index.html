@@ -1,109 +1,104 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>在阿里云服务器运行Dart Server的踩坑实录 | Gridea</title>
-<link rel="shortcut icon" href="https://blog.andypro.games//favicon.ico?v=1582945675402">
-<link href="https://cdn.remixicon.com/releases/v2.1.0/remixicon.css" rel="stylesheet">
+    <meta charset="utf-8" >
+
+<title>在阿里云服务器运行Dart Server的踩坑实录 | Andy Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://blog.andypro.games//favicon.ico?v=1582946449279">
 <link rel="stylesheet" href="https://blog.andypro.games//styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="在阿里云服务器运行Dart Server的踩坑实录 | Gridea - Atom Feed" href="https://blog.andypro.games//atom.xml">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
     <meta name="description" content="前言
 笔者从2019年9月开始接触Flutter，用Flutter来做Capstone的项目，彼时使用了内置数据存储markdown格式文档，再通过markdown插件展示的纯前台应用，现在将其作为毕业设计的一部分进行改造，首先要解决的是后..." />
     <meta name="keywords" content="Dart,后端,Server" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://blog.andypro.games/">
-  <img class="avatar" src="https://blog.andypro.games//images/avatar.png?v=1582945675402" alt="">
-  </a>
-  <h1 class="site-title">
-    Gridea
-  </h1>
-  <p class="site-description">
-    温故而知新
-  </p>
-  <div class="menu-container">
-    
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://blog.andypro.games/">
+        <img src="https://blog.andypro.games//images/avatar.png?v=1582946449279" class="site-logo">
+        <h1 class="site-title">Andy Blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
       
-        <a href="/" class="menu">
-          首页
-        </a>
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
       
-    
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
       
-        <a href="/archives" class="menu">
-          归档
-        </a>
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
       
-    
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
       
-        <a href="/tags" class="menu">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          关于
-        </a>
-      
-    
+    </div>
   </div>
-  <div class="social-container">
-    
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
       
-    
+        
+      
+    </div>
+    <div class="site-description">
+      少即是多
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://blog.andypro.games//atom.xml" target="_blank">RSS</a>
+    </div>
   </div>
 </div>
 
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              在阿里云服务器运行Dart Server的踩坑实录
-            </h2>
-            <div class="post-info">
-              <span>
-                2020-02-20
-              </span>
-              <span>
-                3 min read
-              </span>
-              
-                <a href="https://blog.andypro.games/tag/1dVNqutlW" class="post-tag">
-                  # Dart
-                </a>
-              
-                <a href="https://blog.andypro.games/tag/HriExrbAv8" class="post-tag">
-                  # 后端
-                </a>
-              
-                <a href="https://blog.andypro.games/tag/rruZsVhp1B" class="post-tag">
-                  # Server
-                </a>
-              
-            </div>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">在阿里云服务器运行Dart Server的踩坑实录</h2>
+            <div class="post-date">2020-02-20</div>
             
-              <img class="post-feature-image" src="https://tva1.sinaimg.cn/large/00831rSTly1gcd3b2z2tij317o0u0goj.jpg" alt="">
+              <div class="feature-container" style="background-image: url('https://tva1.sinaimg.cn/large/00831rSTly1gcd3b2z2tij317o0u0goj.jpg')">
+              </div>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <h2 id="前言">前言</h2>
+            <div class="post-content" v-pre>
+              <h2 id="前言">前言</h2>
 <p>笔者从2019年9月开始接触Flutter，用Flutter来做Capstone的项目，彼时使用了内置数据存储markdown格式文档，再通过markdown插件展示的纯前台应用，现在将其作为毕业设计的一部分进行改造，首先要解决的是后端使用什么语言的问题，我的备选方案有Python、Golang和Dart。本次就来尝试Dart Server吧。</p>
 <p>先说结论，目前不推荐把使用大量插件的WebApp部署在阿里云上，除非你的服务器位于境外且性能不错，使用自带库的简单服务端应用还是可以的。</p>
 <h2 id="准备">准备</h2>
@@ -172,88 +167,61 @@ Future main() async {
 <p>前言中说到的不推荐在阿里云上部署Dart WebApp的原因如下图。创建和pub get实在是太消耗性能了。S</p>
 <figure data-type="image" tabindex="10"><img src="https://tva1.sinaimg.cn/large/0082zybply1gbro6hb1dlj30hb0ljab3.jpg" alt="" loading="lazy"></figure>
 
-              </div>
-              <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
-<li><a href="#%E5%87%86%E5%A4%87">准备</a></li>
-<li><a href="#dart-sdk%E4%B8%8B%E8%BD%BD%E4%B8%8E%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">Dart SDK下载与配置环境变量</a></li>
-<li><a href="#%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE">创建第一个项目</a></li>
-<li><a href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAweb-app">创建一个web app</a></li>
-<li><a href="#%E5%90%8E%E8%AE%B0">后记</a></li>
-</ul>
-</li>
-</ul>
-
-              </div>
             </div>
-          </article>
-        </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://blog.andypro.games/tag/1dVNqutlW" class="tag">
+                    Dart
+                  </a>
+                
+                  <a href="https://blog.andypro.games/tag/HriExrbAv8" class="tag">
+                    后端
+                  </a>
+                
+                  <a href="https://blog.andypro.games/tag/rruZsVhp1B" class="tag">
+                    Server
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.andypro.games/post/hello-gridea">
+                  <h3 class="post-title">
+                    Hello Gridea
+                  </h3>
+                </a>
+              </div>
+            
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://blog.andypro.games/post/hello-gridea">
-              <h3 class="post-title">
-                Hello Gridea
-              </h3>
-            </a>
+            
+
           </div>
-        
 
-        
-
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a>
-  <a class="rss" href="https://blog.andypro.games//atom.xml" target="_blank">
-    <i class="ri-rss-line"></i> RSS
-  </a>
-</div>
-
+        </div>
       </div>
     </div>
 
-    <script>
-      hljs.initHighlightingOnLoad()
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
 
-      let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+AOS.init();
 
-      // This should probably be throttled.
-      // Especially because it triggers during smooth scrolling.
-      // https://lodash.com/docs/4.17.10#throttle
-      // You could do like...
-      // window.addEventListener("scroll", () => {
-      //    _.throttle(doThatStuff, 100);
-      // });
-      // Only not doing it here to keep this Pen dependency-free.
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
-      window.addEventListener("scroll", event => {
-        let fromTop = window.scrollY;
+</script>
 
-        mainNavLinks.forEach((link, index) => {
-          let section = document.getElementById(decodeURI(link.hash).substring(1));
-          let nextSection = null
-          if (mainNavLinks[index + 1]) {
-            nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-          }
-          if (section.offsetTop <= fromTop) {
-            if (nextSection) {
-              if (nextSection.offsetTop > fromTop) {
-                link.classList.add("current");
-              } else {
-                link.classList.remove("current");    
-              }
-            } else {
-              link.classList.add("current");
-            }
-          } else {
-            link.classList.remove("current");
-          }
-        });
-      });
 
-    </script>
+
+
+
+
   </body>
 </html>
