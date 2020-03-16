@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.andypro.games/</id>
     <title>Andy Blog</title>
-    <updated>2020-02-29T07:37:16.376Z</updated>
+    <updated>2020-03-16T13:02:00.075Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.andypro.games/"/>
     <link rel="self" href="https://blog.andypro.games/atom.xml"/>
@@ -12,8 +12,8 @@
     <rights>All rights reserved 2020, Andy Blog</rights>
     <entry>
         <title type="html"><![CDATA[在阿里云服务器运行Dart Server的踩坑实录]]></title>
-        <id>https://blog.andypro.games/post/2020-2-10-Dartserver踩坑</id>
-        <link href="https://blog.andypro.games/post/2020-2-10-Dartserver踩坑">
+        <id>https://blog.andypro.games/post/2020-2-10-Dartserver踩坑/</id>
+        <link href="https://blog.andypro.games/post/2020-2-10-Dartserver踩坑/">
         </link>
         <updated>2020-02-20T02:59:13.000Z</updated>
         <summary type="html"><![CDATA[<p>在阿里云服务器运行Dart Server的踩坑实录</p>
@@ -92,8 +92,8 @@ Future main() async {
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://blog.andypro.games/post/hello-gridea</id>
-        <link href="https://blog.andypro.games/post/hello-gridea">
+        <id>https://blog.andypro.games/post/hello-gridea/</id>
+        <link href="https://blog.andypro.games/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
