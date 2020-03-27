@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.andypro.games/</id>
     <title>Andy Blog</title>
-    <updated>2020-03-22T04:49:07.323Z</updated>
+    <updated>2020-03-27T01:44:06.143Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.andypro.games/"/>
     <link rel="self" href="https://blog.andypro.games/atom.xml"/>
@@ -10,6 +10,16 @@
     <logo>https://blog.andypro.games/images/avatar.png</logo>
     <icon>https://blog.andypro.games/favicon.ico</icon>
     <rights>All rights reserved 2020, Andy Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[GitHub被劫持了]]></title>
+        <id>https://blog.andypro.games/post/github-bei-jie-chi-liao/</id>
+        <link href="https://blog.andypro.games/post/github-bei-jie-chi-liao/">
+        </link>
+        <updated>2020-03-27T01:34:49.000Z</updated>
+        <content type="html"><![CDATA[<p>昨天访问自己博客发现证书不符合标准，起初以为证书过期了，仔细看证书才发现被攻击了，*.github.io和*.github.com已经无法在全国多地访问。只能通过代理服务器访问。<br>
+<img src="https://blog.andypro.games//post-images/1585273422807.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Coursera慕课学习体验与助学金申请]]></title>
         <id>https://blog.andypro.games/post/coursera-mu-ke-xue-xi-ti-yan-yu-zhu-xue-jin-shen-qing/</id>
