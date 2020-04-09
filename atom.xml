@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.andypro.games/</id>
     <title>Andy Blog</title>
-    <updated>2020-04-05T14:31:23.560Z</updated>
+    <updated>2020-04-09T23:46:48.283Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.andypro.games/"/>
     <link rel="self" href="https://blog.andypro.games/atom.xml"/>
@@ -19,7 +19,7 @@
         <content type="html"><![CDATA[<h2 id="前言">前言</h2>
 <p>最近学游戏开发时，知道了这个经典的BUG，中文互联网上似乎很少见到关于这个BUG的内容，于是有了这篇文章。</p>
 <h2 id="strafe-40-bug">Strafe 40 bug</h2>
-<p>Strafe 40 bug是一个来自fps射击游戏的鼻祖Doom的著名bug，向前移动同时向任意方向（左右）移动，速度会提升28%，还有同样的Strafe 50 bug。<br>
+<p>Strafe 40 bug是一个来自FPS游戏的鼻祖Doom的著名bug，向前移动同时向任意方向（左右）移动，速度会提升28%，还有同样的Strafe 50 bug。<br>
 <img src="https://blog.andypro.games//post-images/1586095312095.gif" alt="" loading="lazy"></p>
 <h2 id="原理">原理</h2>
 <p>在<a href="https://github.com/osgcc/DOOM/blob/master/linuxdoom-1.10/p_user.c#L148-171">Doom的源代码</a>中，用来控制玩家移动的部分用两个if表达式分别处理向前移动和左右移动的输入，当玩家同时输入时两个语句都会被执行。</p>
