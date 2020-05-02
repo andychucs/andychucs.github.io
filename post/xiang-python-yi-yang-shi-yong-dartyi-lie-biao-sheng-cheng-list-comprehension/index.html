@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>游戏开发 | Andy Blog</title>
+<title>像Python一样使用Dart（一）：列表生成 List comprehension | Andy Blog</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -22,7 +22,11 @@
 
 
 
-    <meta name="description" content="少即是多">
+    <meta name="description" content="Dart语言里，列表生成的一般方式是使用List的generate构造函数：
+new List&lt;int&gt;.generate(3, (int index) =&gt; index * index); // [0, 1, 4]
+
+又..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -98,33 +102,45 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: 游戏开发</h2>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://blog.andypro.games/post/zhu-ming-you-xi-bugstrafe-40-bug/">
-                  <h2 class="post-title">著名游戏BUG:Strafe 40 bug</h2>
-                </a>
-                <div class="post-date">
-                  2020-04-05
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-                <a class="right" href="https://blog.andypro.games/post/zhu-ming-you-xi-bugstrafe-40-bug/">
-                  <div class="feature-container" style="background-image: url('https://blog.andypro.games//post-images/zhu-ming-you-xi-bugstrafe-40-bug.jpg')">
-                  </div>
-                </a>
-              
-            </article>
-          
+          <div class="post-detail">
+            <h2 class="post-title">像Python一样使用Dart（一）：列表生成 List comprehension</h2>
+            <div class="post-date">2020-05-02</div>
+            
+            <div class="post-content" v-pre>
+              <p>Dart语言里，列表生成的一般方式是使用List的generate构造函数：</p>
+<pre><code class="language-dart">new List&lt;int&gt;.generate(3, (int index) =&gt; index * index); // [0, 1, 4]
+</code></pre>
+<p>又是匿名函数又是胖箭头，看起来很不优雅。<br>
+既然Dart被称为Python+Java/Kotlin，Python那样的列表生成表达式也是有的：</p>
+<pre><code class="language-python">[i*i for i in range(0,3)] #python
+</code></pre>
+<pre><code class="language-dart">[for (var i = 0; i &lt; 3; i+=1 ) i*i]
+</code></pre>
+<p>如果需要枚举的对象是LIst和Set，还可以用for-in迭代，看起来更像了：</p>
+<pre><code class="language-dart">[for (var i in [0,1,2] ) i*i]
+</code></pre>
+<p>使用这种写法需要<a href="https://dart.cn/tools/diagnostic-messages#sdk_version_ui_as_code">Dart 2.3.0</a>，在Flutter项目中，需要更改pubspec.yaml：</p>
+<pre><code class="language-yaml">environment:
+  sdk: &quot;&gt;=2.2.2 &lt;3.0.0&quot;
+# 这里是AndroidStudio自动修改的，似乎最低版本大于等于2.2.0即可。
+</code></pre>
 
-          <div class="pagination-container">
-  
-  
-</div>
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://blog.andypro.games/post/zhu-ming-you-xi-bugstrafe-40-bug/">
+                  <h3 class="post-title">
+                    著名游戏BUG:Strafe 40 bug
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
 
         </div>
       </div>

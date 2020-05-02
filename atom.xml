@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.andypro.games/</id>
     <title>Andy Blog</title>
-    <updated>2020-04-09T23:46:48.283Z</updated>
+    <updated>2020-05-02T16:46:47.287Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.andypro.games/"/>
     <link rel="self" href="https://blog.andypro.games/atom.xml"/>
@@ -10,6 +10,31 @@
     <logo>https://blog.andypro.games/images/avatar.png</logo>
     <icon>https://blog.andypro.games/favicon.ico</icon>
     <rights>All rights reserved 2020, Andy Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[像Python一样使用Dart（一）：列表生成 List comprehension]]></title>
+        <id>https://blog.andypro.games/post/xiang-python-yi-yang-shi-yong-dartyi-lie-biao-sheng-cheng-list-comprehension/</id>
+        <link href="https://blog.andypro.games/post/xiang-python-yi-yang-shi-yong-dartyi-lie-biao-sheng-cheng-list-comprehension/">
+        </link>
+        <updated>2020-05-02T15:59:24.000Z</updated>
+        <content type="html"><![CDATA[<p>Dart语言里，列表生成的一般方式是使用List的generate构造函数：</p>
+<pre><code class="language-dart">new List&lt;int&gt;.generate(3, (int index) =&gt; index * index); // [0, 1, 4]
+</code></pre>
+<p>又是匿名函数又是胖箭头，看起来很不优雅。<br>
+既然Dart被称为Python+Java/Kotlin，Python那样的列表生成表达式也是有的：</p>
+<pre><code class="language-python">[i*i for i in range(0,3)] #python
+</code></pre>
+<pre><code class="language-dart">[for (var i = 0; i &lt; 3; i+=1 ) i*i]
+</code></pre>
+<p>如果需要枚举的对象是LIst和Set，还可以用for-in迭代，看起来更像了：</p>
+<pre><code class="language-dart">[for (var i in [0,1,2] ) i*i]
+</code></pre>
+<p>使用这种写法需要<a href="https://dart.cn/tools/diagnostic-messages#sdk_version_ui_as_code">Dart 2.3.0</a>，在Flutter项目中，需要更改pubspec.yaml：</p>
+<pre><code class="language-yaml">environment:
+  sdk: &quot;&gt;=2.2.2 &lt;3.0.0&quot;
+# 这里是AndroidStudio自动修改的，似乎最低版本大于等于2.2.0即可。
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[著名游戏BUG:Strafe 40 bug]]></title>
         <id>https://blog.andypro.games/post/zhu-ming-you-xi-bugstrafe-40-bug/</id>
