@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.andypro.games/</id>
     <title>Andy Blog</title>
-    <updated>2020-05-03T07:42:26.307Z</updated>
+    <updated>2020-05-07T05:02:20.408Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.andypro.games/"/>
     <link rel="self" href="https://blog.andypro.games/atom.xml"/>
@@ -10,6 +10,69 @@
     <logo>https://blog.andypro.games/images/avatar.png</logo>
     <icon>https://blog.andypro.games/favicon.ico</icon>
     <rights>All rights reserved 2020, Andy Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[全国医院数据-中国医疗保险网爬虫]]></title>
+        <id>https://blog.andypro.games/post/quan-guo-yi-yuan-shu-ju-zhong-guo-yi-liao-bao-xian-wang-pa-chong/</id>
+        <link href="https://blog.andypro.games/post/quan-guo-yi-yuan-shu-ju-zhong-guo-yi-liao-bao-xian-wang-pa-chong/">
+        </link>
+        <updated>2020-05-07T02:41:10.000Z</updated>
+        <content type="html"><![CDATA[<p>先上<a href="https://github.com/AndyZhuAZ/hospital-crawler-CN">项目地址</a></p>
+<h2 id="格式说明">格式说明</h2>
+<p>输出格式为csv，表头为：医院名称,省份,城市,医院等级,擅长病症,医院地址,医院电话,医院邮箱,医院网站。</p>
+<h2 id="网站解析">网站解析</h2>
+<p>网址的page参数是页数，k1到k3分别是省份、等级、重点科室。k4不知道是干什么的，还有一个title参数用来搜索。我要爬取全部医院所以只需要遍历爬取全部页数的网页即可。<br>
+https://www.zgylbx.com/index.php?m=content&amp;c=index&amp;a=lists&amp;catid=106&amp;page=1&amp;k1=&amp;k2=&amp;k3=&amp;k4=<br>
+网页结构如图，医院列表装在&lt;table&gt;标签里，第零行是表头，之后的奇数行是基本信息，偶数行是医院地址,医院电话,医院邮箱,医院网站。<br>
+<img src="https://blog.andypro.games//post-images/1588826502675.png" alt="" loading="lazy"></p>
+<h2 id="代码说明">代码说明</h2>
+<p>打开csv文件，writerows的参数是每一行的数据，列表嵌套结构，输入crawler函数返回的数据。</p>
+<pre><code class="language-python">if __name__ == '__main__':
+    url, headers = init()
+    with open('hospital.csv', 'a') as f:
+        write = csv.writer(f)
+        write.writerows(crawler(url, headers))
+</code></pre>
+<p>crawler函数先设置表头，然后遍历全部页面，将解析成list的数据添加到rows，最后返回rows。</p>
+<pre><code class="language-python">def crawler(u, h):
+    rows = [[&quot;医院名称&quot;, '省份', '城市', &quot;医院等级&quot;, '擅长病症', '医院地址', '医院电话', '医院邮箱', '医院网站']]
+    for i in range(1, 1530):
+        r = requests.get(str(u) + str(i) + &quot;&amp;k1=0&amp;k2=0&amp;k3=0&amp;k4=&quot;, headers=h, timeout=20)
+        print('url:'+str(u) + str(i) + &quot;&amp;k1=0&amp;k2=0&amp;k3=0&amp;k4=&quot;)
+        soup = BeautifulSoup(r.text, &quot;html.parser&quot;)
+        message = soup.find_all('tr')
+        rows.extend(get_rows(message))
+    return rows
+</code></pre>
+<p>get_rows函数将每一页的数据解析成一个list，从索引1开始遍历，设置一个flag确定当前行的类型，医院详细信息是写在一个标签里用br标签隔开的，所以手动分割一下。</p>
+<pre><code class="language-python">def get_rows(msg):
+    row_list = []
+    row = []
+    sub_row = False
+    for line in msg[1:]:
+        data = line.find_all('td')
+        if not sub_row:
+            prov_city = data[1].text.strip().split('-')
+            row = [
+                data[0].text,
+                prov_city[0],
+                prov_city[1],
+                data[2].text,
+                data[3].text
+            ]
+            sub_row = True
+        else:
+            data = str(data[0]).split('&lt;br/&gt;')
+            add = data[0].strip().split('医院地址:')[-1]
+            tel = data[1].strip().split('医院电话:')[-1]
+            mail = data[2].strip().split('医院邮箱:')[-1]
+            site = data[3].strip().split('医院网站:')[-1][:-5]
+            row.extend([add, tel, mail, site])
+            row_list.append(row)
+            sub_row = False
+    return row_list
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[像Python一样使用Dart（一）：列表生成 List comprehension]]></title>
         <id>https://blog.andypro.games/post/xiang-python-yi-yang-shi-yong-dartyi-lie-biao-sheng-cheng-list-comprehension/</id>
