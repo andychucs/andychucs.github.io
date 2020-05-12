@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.andypro.games/</id>
     <title>Andy Blog</title>
-    <updated>2020-05-07T05:03:27.117Z</updated>
+    <updated>2020-05-12T04:00:54.503Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.andypro.games/"/>
     <link rel="self" href="https://blog.andypro.games/atom.xml"/>
@@ -10,6 +10,20 @@
     <logo>https://blog.andypro.games/images/avatar.png</logo>
     <icon>https://blog.andypro.games/favicon.ico</icon>
     <rights>All rights reserved 2020, Andy Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[游戏设计思考-「硬编码」式的设计]]></title>
+        <id>https://blog.andypro.games/post/you-xi-she-ji-si-kao-ying-bian-ma-shi-de-she-ji/</id>
+        <link href="https://blog.andypro.games/post/you-xi-she-ji-si-kao-ying-bian-ma-shi-de-she-ji/">
+        </link>
+        <updated>2020-05-12T03:42:39.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>今天偶然看到这条历代刺客信条中跑酷的演变，写了一点关于游戏设计的思考，整理成此贴。并非什么观点结论，仅仅是一点思考。</p>
+<iframe src="https://player.bilibili.com/player.html?aid=668122701&bvid=BV1Ba4y1i7wz&cid=189552933&page=1" scrolling="auto" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="400px"> </iframe>
+<h2 id="关于刺客信条系列跑酷变化的思考">关于刺客信条系列跑酷变化的思考</h2>
+<p>纵观历代刺客信条作品，抛开战斗系统和人物系统的变化，着眼核心要素之一的跑酷系统，早期的刺客信条在地图的设计上往往采用人工设计攀爬点，而新的刺客信条以复用建筑模型模型为主少量的剧情需要地形设计了攀爬点。如果把关卡地图设计比作编程，那么人工设计攀爬点就是硬编码，但是这种硬编码是有很大好处的。如果审视新旧刺客信条的跑酷视频，可以发现老版刺客信条依靠巧妙的攀爬点设计可以很快的在城市中穿梭，如升降机、晾衣杆、招牌、房梁、转角的吊灯，从堆放在墙边的杂物开始往建筑上方攀爬，每一步都有一个巧妙的着力点，整个过程流畅自然。而新版本特别是在起源之后，大量的房子模型复用，几乎每一个建筑的每一个地方都有完整的攀爬点，攀爬随心所欲，但是密集的攀爬点却使得效率大打折扣，没有了跑酷的那种潇洒流畅。</p>
+<p>游戏设计师巧妙的构思让游戏不像普通的计算机软件那样呆板，细致的安排玩家可以行进的线路可以安排进很多有趣刺激的镜头（例如使命召唤现代战争中的雪山攀岩），这可以很大程度提高游戏体验，虽然这样的设计使开发效率会降低，但是我认为设计者的有心安排恰恰是游戏的艺术性的一种体现。归根结底话题又回到了开放世界需要多少开放程度的问题上，回到了开放世界和线性游戏的不同上。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[全国医院数据-中国医疗保险网爬虫]]></title>
         <id>https://blog.andypro.games/post/quan-guo-yi-yuan-shu-ju-zhong-guo-yi-liao-bao-xian-wang-pa-chong/</id>
