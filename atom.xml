@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://blog.andypro.games/</id>
+    <id>https://andyzhuaz.github.io</id>
     <title>Andy Blog</title>
-    <updated>2020-05-12T04:00:54.503Z</updated>
+    <updated>2021-10-17T09:54:28.960Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://blog.andypro.games/"/>
-    <link rel="self" href="https://blog.andypro.games/atom.xml"/>
+    <link rel="alternate" href="https://andyzhuaz.github.io"/>
+    <link rel="self" href="https://andyzhuaz.github.io/atom.xml"/>
     <subtitle>少即是多</subtitle>
-    <logo>https://blog.andypro.games/images/avatar.png</logo>
-    <icon>https://blog.andypro.games/favicon.ico</icon>
-    <rights>All rights reserved 2020, Andy Blog</rights>
+    <logo>https://andyzhuaz.github.io/images/avatar.png</logo>
+    <icon>https://andyzhuaz.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2021, Andy Blog</rights>
     <entry>
         <title type="html"><![CDATA[游戏设计思考-「硬编码」式的设计]]></title>
-        <id>https://blog.andypro.games/post/you-xi-she-ji-si-kao-ying-bian-ma-shi-de-she-ji/</id>
-        <link href="https://blog.andypro.games/post/you-xi-she-ji-si-kao-ying-bian-ma-shi-de-she-ji/">
+        <id>https://andyzhuaz.github.io/post/you-xi-she-ji-si-kao-ying-bian-ma-shi-de-she-ji/</id>
+        <link href="https://andyzhuaz.github.io/post/you-xi-she-ji-si-kao-ying-bian-ma-shi-de-she-ji/">
         </link>
         <updated>2020-05-12T03:42:39.000Z</updated>
         <content type="html"><![CDATA[<h2 id="前言">前言</h2>
@@ -26,8 +26,8 @@
     </entry>
     <entry>
         <title type="html"><![CDATA[全国医院数据-中国医疗保险网爬虫]]></title>
-        <id>https://blog.andypro.games/post/quan-guo-yi-yuan-shu-ju-zhong-guo-yi-liao-bao-xian-wang-pa-chong/</id>
-        <link href="https://blog.andypro.games/post/quan-guo-yi-yuan-shu-ju-zhong-guo-yi-liao-bao-xian-wang-pa-chong/">
+        <id>https://andyzhuaz.github.io/post/quan-guo-yi-yuan-shu-ju-zhong-guo-yi-liao-bao-xian-wang-pa-chong/</id>
+        <link href="https://andyzhuaz.github.io/post/quan-guo-yi-yuan-shu-ju-zhong-guo-yi-liao-bao-xian-wang-pa-chong/">
         </link>
         <updated>2020-05-07T02:41:10.000Z</updated>
         <content type="html"><![CDATA[<p>先上<a href="https://github.com/AndyZhuAZ/hospital-crawler-CN">项目地址</a></p>
@@ -37,7 +37,7 @@
 <p>网址的page参数是页数，k1到k3分别是省份、等级、重点科室。k4不知道是干什么的，还有一个title参数用来搜索。我要爬取全部医院所以只需要遍历爬取全部页数的网页即可。<br>
 https://www.zgylbx.com/index.php?m=content&amp;c=index&amp;a=lists&amp;catid=106&amp;page=1&amp;k1=&amp;k2=&amp;k3=&amp;k4=<br>
 网页结构如图，医院列表装在&lt;table&gt;标签里，第零行是表头，之后的奇数行是基本信息，偶数行是医院地址,医院电话,医院邮箱,医院网站。<br>
-<img src="https://blog.andypro.games//post-images/1588826502675.png" alt="" loading="lazy"></p>
+<img src="https://andyzhuaz.github.io/post-images/1588826502675.png" alt="" loading="lazy"></p>
 <h2 id="代码说明">代码说明</h2>
 <p>打开csv文件，writerows的参数是每一行的数据，列表嵌套结构，输入crawler函数返回的数据。</p>
 <pre><code class="language-python">if __name__ == '__main__':
@@ -89,8 +89,8 @@ https://www.zgylbx.com/index.php?m=content&amp;c=index&amp;a=lists&amp;catid=106
     </entry>
     <entry>
         <title type="html"><![CDATA[像Python一样使用Dart（一）：列表生成 List comprehension]]></title>
-        <id>https://blog.andypro.games/post/xiang-python-yi-yang-shi-yong-dartyi-lie-biao-sheng-cheng-list-comprehension/</id>
-        <link href="https://blog.andypro.games/post/xiang-python-yi-yang-shi-yong-dartyi-lie-biao-sheng-cheng-list-comprehension/">
+        <id>https://andyzhuaz.github.io/post/xiang-python-yi-yang-shi-yong-dartyi-lie-biao-sheng-cheng-list-comprehension/</id>
+        <link href="https://andyzhuaz.github.io/post/xiang-python-yi-yang-shi-yong-dartyi-lie-biao-sheng-cheng-list-comprehension/">
         </link>
         <updated>2020-05-02T15:59:24.000Z</updated>
         <content type="html"><![CDATA[<p>Dart语言里，列表生成的一般方式是使用List的generate构造函数：</p>
@@ -114,15 +114,15 @@ https://www.zgylbx.com/index.php?m=content&amp;c=index&amp;a=lists&amp;catid=106
     </entry>
     <entry>
         <title type="html"><![CDATA[著名游戏BUG:Strafe 40 bug]]></title>
-        <id>https://blog.andypro.games/post/zhu-ming-you-xi-bugstrafe-40-bug/</id>
-        <link href="https://blog.andypro.games/post/zhu-ming-you-xi-bugstrafe-40-bug/">
+        <id>https://andyzhuaz.github.io/post/zhu-ming-you-xi-bugstrafe-40-bug/</id>
+        <link href="https://andyzhuaz.github.io/post/zhu-ming-you-xi-bugstrafe-40-bug/">
         </link>
         <updated>2020-04-05T13:54:58.000Z</updated>
         <content type="html"><![CDATA[<h2 id="前言">前言</h2>
 <p>最近学游戏开发时，知道了这个经典的BUG，中文互联网上似乎很少见到关于这个BUG的内容，于是有了这篇文章。</p>
 <h2 id="strafe-40-bug">Strafe 40 bug</h2>
 <p>Strafe 40 bug是一个来自FPS游戏的鼻祖Doom的著名bug，向前移动同时向任意方向（左右）移动，速度会提升28%，还有同样的Strafe 50 bug。<br>
-<img src="https://blog.andypro.games//post-images/1586095312095.gif" alt="" loading="lazy"></p>
+<img src="https://andyzhuaz.github.io/post-images/1586095312095.gif" alt="" loading="lazy"></p>
 <h2 id="原理">原理</h2>
 <p>在<a href="https://github.com/osgcc/DOOM/blob/master/linuxdoom-1.10/p_user.c#L148-171">Doom的源代码</a>中，用来控制玩家移动的部分用两个if表达式分别处理向前移动和左右移动的输入，当玩家同时输入时两个语句都会被执行。</p>
 <pre><code class="language-c++">void P_MovePlayer (player_t* player)
@@ -159,14 +159,14 @@ c4.7,-7.3,11,-11,19,-11H40000v40H1012.3s-271.3,567,-271.3,567c-38.7,80.7,-84,
 c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
 -252,-110,-252c-10.7,8,-22,16.7,-34,26c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26
 s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.25612499999999994em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span></span></span></span></span></p>
-<figure data-type="image" tabindex="1"><img src="https://blog.andypro.games//post-images/1586096168310.png" alt="" loading="lazy"></figure>
+<figure data-type="image" tabindex="1"><img src="https://andyzhuaz.github.io/post-images/1586096168310.png" alt="" loading="lazy"></figure>
 <p><a href="https://wilkie.how/posts/learning-mistakes-from-doom-masters">参考文章</a></p>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[Coursera慕课学习体验与助学金申请]]></title>
-        <id>https://blog.andypro.games/post/coursera-mu-ke-xue-xi-ti-yan-yu-zhu-xue-jin-shen-qing/</id>
-        <link href="https://blog.andypro.games/post/coursera-mu-ke-xue-xi-ti-yan-yu-zhu-xue-jin-shen-qing/">
+        <id>https://andyzhuaz.github.io/post/coursera-mu-ke-xue-xi-ti-yan-yu-zhu-xue-jin-shen-qing/</id>
+        <link href="https://andyzhuaz.github.io/post/coursera-mu-ke-xue-xi-ti-yan-yu-zhu-xue-jin-shen-qing/">
         </link>
         <updated>2020-03-16T12:18:08.000Z</updated>
         <summary type="html"><![CDATA[<p>coursera 学习 助学金申请</p>
@@ -195,8 +195,8 @@ s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></sp
     </entry>
     <entry>
         <title type="html"><![CDATA[在阿里云服务器运行Dart Server的踩坑实录]]></title>
-        <id>https://blog.andypro.games/post/2020-2-10-Dartserver踩坑/</id>
-        <link href="https://blog.andypro.games/post/2020-2-10-Dartserver踩坑/">
+        <id>https://andyzhuaz.github.io/post/2020-2-10-Dartserver踩坑/</id>
+        <link href="https://andyzhuaz.github.io/post/2020-2-10-Dartserver踩坑/">
         </link>
         <updated>2020-02-20T02:59:13.000Z</updated>
         <summary type="html"><![CDATA[<p>在阿里云服务器运行Dart Server的踩坑实录</p>
@@ -275,8 +275,8 @@ Future main() async {
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://blog.andypro.games/post/hello-gridea/</id>
-        <link href="https://blog.andypro.games/post/hello-gridea/">
+        <id>https://andyzhuaz.github.io/post/hello-gridea/</id>
+        <link href="https://andyzhuaz.github.io/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
