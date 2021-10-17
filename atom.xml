@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://andyzhuaz.github.io</id>
     <title>Andy Blog</title>
-    <updated>2021-10-17T10:01:12.256Z</updated>
+    <updated>2021-10-17T10:17:03.853Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://andyzhuaz.github.io"/>
     <link rel="self" href="https://andyzhuaz.github.io/atom.xml"/>
@@ -10,6 +10,32 @@
     <logo>https://andyzhuaz.github.io/images/avatar.png</logo>
     <icon>https://andyzhuaz.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Andy Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Linux系统如何将AMD显卡驱动从Radeon更换为amdgpu]]></title>
+        <id>https://andyzhuaz.github.io/post/linux-xi-tong-ru-he-jiang-amd-xian-qia-qu-dong-cong-radeon-geng-huan-wei-amdgpu/</id>
+        <link href="https://andyzhuaz.github.io/post/linux-xi-tong-ru-he-jiang-amd-xian-qia-qu-dong-cong-radeon-geng-huan-wei-amdgpu/">
+        </link>
+        <updated>2021-10-17T10:09:14.000Z</updated>
+        <content type="html"><![CDATA[<ol>
+<li>打开 <code>/etc/modprobe.d/blacklist.conf</code></li>
+<li>新增一行： <code>blacklist radeon</code> 保存</li>
+<li>运行 <code>sudo update-initramfs -u -k all</code></li>
+<li>新建<code>/etc/modprobe.d/amdgpu.conf</code></li>
+<li>填入以下内容<pre><code>options amdgpu si_support=1
+
+options amdgpu cik_support=1
+</code></pre>
+</li>
+<li>新建 <code>/etc/modprobe.d/radeon.conf</code></li>
+<li>填入以下内容<pre><code>options radeon si_support=0
+
+options radeon cik_support=0
+</code></pre>
+</li>
+<li>reboot 重启</li>
+</ol>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[游戏设计思考-「硬编码」式的设计]]></title>
         <id>https://andyzhuaz.github.io/post/you-xi-she-ji-si-kao-ying-bian-ma-shi-de-she-ji/</id>
