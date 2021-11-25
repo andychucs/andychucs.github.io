@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://andyzhuaz.github.io</id>
     <title>Andy Blog</title>
-    <updated>2021-11-25T14:13:53.895Z</updated>
+    <updated>2021-11-25T14:16:33.373Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://andyzhuaz.github.io"/>
     <link rel="self" href="https://andyzhuaz.github.io/atom.xml"/>
@@ -47,9 +47,9 @@ DVD光盘标准主要分两种，+和-。<br>
 <h3 id="关于可擦写dvd">关于可擦写DVD</h3>
 <p>以DVD-RAM/+RW为代表的可擦写光盘可以一般磁盘的方式进行文件存取使用，无需每次更改时进行擦除刻录，前提是需要将光盘格式化为UDF、ext、HFS等格式，你大可以将其视为U盘。</p>
 <h3 id="极富特点又难用的dvd-ram">极富特点又难用的DVD-RAM</h3>
-<p>观看DVD-RAM的盘面你就会发现很大的不同，DVD-RAM往往是金色盘面上刻有很多竖线，这标志着它与众不同的原理。但是就本人实际体验的结论是不如DVD+RW，索尼NB。<br>
-DVD-RAM(DVD-Random Access Memory)是一种相对特殊的光盘规格，其设计用意 在于资料存储、备份等，同时因为可重写次数的理论值较其他可重写 DVD 规格为高，以及 文件存储的格式更具灵活性。DVD-RAM 的文件存储规格与电脑硬盘及软盘技术相似，资料 均存储于多条同轴心的资料轨(等线速)，随机存取方式与硬盘和磁盘相同，相对于 DVD- RW 及 DVD+RW 以单一螺旋轨存储资料(等角速)，读写时需要依赖特别的数据包读写程 序。<br>
-在 DVD-RAM 的使用上，尤其需要注意文件系统与操作系统的兼容性，目前常见的操 作系统仅有 Windows 可以对 DVD-RAM 进行 UDF 文件系统的格式化，其他常用操作系统 如 Linux 允许将 DVD-RAM 格式化为其支持的文件系统，如 ext3/4，macOS 在新版本取消 了对 UDF 文件系统的支持，且不提供光盘格式化的 GUI，只能通过 CLI 进行 HFS+文件系 统格式化后才能使用。故如果需要在 Linux 系统之间交换资料需要将 DVD-RAM 格式化为 ext4/3 文件系统，如果要在 Windows 与 Linux 之间交换资料需要格式化为 UDF 文件系统。</p>
+<p>观看DVD-RAM的盘面你就会发现很大的不同，DVD-RAM往往是金色盘面上刻有很多竖线，这标志着它与众不同的原理。但是就本人实际体验的结论是不如DVD+RW，索尼NB。</p>
+<p>DVD-RAM(DVD-Random Access Memory)是一种相对特殊的光盘规格，其设计用意 在于资料存储、备份等，同时因为可重写次数的理论值较其他可重写 DVD 规格为高，以及 文件存储的格式更具灵活性。DVD-RAM 的文件存储规格与电脑硬盘及软盘技术相似，资料 均存储于多条同轴心的资料轨(等线速)，随机存取方式与硬盘和磁盘相同，相对于 DVD- RW 及 DVD+RW 以单一螺旋轨存储资料(等角速)，读写时需要依赖特别的数据包读写程 序。</p>
+<p>在 DVD-RAM 的使用上，尤其需要注意文件系统与操作系统的兼容性，目前常见的操 作系统仅有 Windows 可以对 DVD-RAM 进行 UDF 文件系统的格式化，其他常用操作系统 如 Linux 允许将 DVD-RAM 格式化为其支持的文件系统，如 ext3/4，macOS 在新版本取消 了对 UDF 文件系统的支持，且不提供光盘格式化的 GUI，只能通过 CLI 进行 HFS+文件系 统格式化后才能使用。故如果需要在 Linux 系统之间交换资料需要将 DVD-RAM 格式化为 ext4/3 文件系统，如果要在 Windows 与 Linux 之间交换资料需要格式化为 UDF 文件系统。</p>
 <h2 id="cd">CD</h2>
 <p>对于CD的话除了特别的唱片，一般只关注大小两种尺寸的CD-R和CD-RW，这里不多做解释。</p>
 <h1 id="在linux上检查光驱和光盘信息的一些方法">在Linux上检查光驱和光盘信息的一些方法</h1>
