@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>时之泪——关于光盘的研究：在Linux操作系统上如何使用光驱、光盘与光驱的简单科普 | Andy Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://andyzhuaz.github.io/favicon.ico?v=1637849621227">
+<link rel="stylesheet" href="https://andyzhuaz.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="前言：因为工作关系对光盘和光驱做过一些研究，还与HLDS的员工交流过，过了很久决定对之前的一些资料进行整理。以便有需要的朋友翻阅。本文部分关于参数、原理和历史内容来自维基百科。
+
+光盘的简单分类与历史
+抛开专用设备使用的光盘，例如索尼等随身..." />
+    <meta name="keywords" content="" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://andyzhuaz.github.io">
+        <img src="https://andyzhuaz.github.io/images/avatar.png?v=1637849621227" class="site-logo">
+        <h1 class="site-title">Andy Blog</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+          <a class="social-link" href="https://github.com/AndyZhuAZ/" target="_blank">
+            <i class="fab fa-github"></i>
+          </a>
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      少即是多
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://andyzhuaz.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">时之泪——关于光盘的研究：在Linux操作系统上如何使用光驱、光盘与光驱的简单科普</h2>
+            <div class="post-date">2021-11-25</div>
+            
+            <div class="post-content" v-pre>
+              <p>前言：因为工作关系对光盘和光驱做过一些研究，还与HLDS的员工交流过，过了很久决定对之前的一些资料进行整理。以便有需要的朋友翻阅。本文部分关于参数、原理和历史内容来自维基百科。</p>
+<!-- more -->
+<h1 id="光盘的简单分类与历史">光盘的简单分类与历史</h1>
+<p>抛开专用设备使用的光盘，例如索尼等随身听、游戏机使用的MD、UMD等等专用型光盘。<br>
+大致分类如下：</p>
+<h2 id="红外激光cd">红外激光：CD</h2>
+<p>CD光盘驱动器起始于1974年，由<a href="https://zh.wikipedia.org/wiki/%E8%8D%B7%E8%98%AD">荷兰</a>的<a href="https://zh.wikipedia.org/wiki/%E9%A3%9B%E5%88%A9%E6%B5%A6">飞利浦公司</a>与<a href="https://zh.wikipedia.org/wiki/%E6%97%A5%E6%9C%AC">日本</a>的<a href="https://zh.wikipedia.org/wiki/%E7%B4%A2%E5%B0%BC">Sony</a>合作所发表的<a href="https://zh.wikipedia.org/wiki/%E9%9F%B3%E6%A8%82%E5%85%89%E7%A2%9F">音乐光盘</a>（Audio CD），亦称为<a href="https://zh.wikipedia.org/wiki/CDDA">CD-DA</a>（Compact Disc-Digital Audio）；从此之后，因其它存储媒体市场的发展而连续推出一系列的光盘规格与产品。</p>
+<p><strong>影音光盘</strong>（Video Compact Disc；<strong>VCD</strong>），又称影音压缩光盘，是一种在<a href="https://zh.wikipedia.org/wiki/CD">光盘</a>（Compact Disc）上存储<a href="https://zh.wikipedia.org/wiki/%E8%A6%96%E8%A8%8A">视频</a>信息的标准。VCD可以在<a href="https://zh.wikipedia.org/wiki/%E5%80%8B%E4%BA%BA%E9%9B%BB%E8%85%A6">个人电脑</a>和<a href="https://zh.wikipedia.org/w/index.php?title=VCD%E6%92%AD%E6%94%BE%E5%99%A8&amp;action=edit&amp;redlink=1">VCD播放器</a>以及大部分<a href="https://zh.wikipedia.org/wiki/DVD%E6%92%AD%E6%94%BE%E6%A9%9F">DVD播放机</a>中播放，但大部分<a href="https://zh.wikipedia.org/wiki/%E8%97%8D%E5%85%89%E5%85%89%E7%A2%9F">蓝光光盘</a>播放机已不支持VCD。VCD标准由<a href="https://zh.wikipedia.org/wiki/%E7%B4%A2%E5%B0%BC%E5%85%AC%E5%8F%B8">索尼</a>、<a href="https://zh.wikipedia.org/wiki/%E9%A3%9B%E5%88%A9%E6%B5%A6">飞利浦</a>、<a href="https://zh.wikipedia.org/wiki/JVC">JVC</a>、<a href="https://zh.wikipedia.org/wiki/%E6%9D%BE%E4%B8%8B%E9%9B%BB%E5%99%A8">松下电器</a>等电器生产厂商联合于1993年制定，属于数字光盘的<a href="https://zh.wikipedia.org/w/index.php?title=CD%E8%A1%8C%E6%A5%AD%E6%A8%99%E6%BA%96&amp;action=edit&amp;redlink=1">白皮书</a>标准。</p>
+<h2 id="红色激光dvd">红色激光：DVD</h2>
+<p>DVD原是<strong>D</strong>igital <strong>V</strong>ideo <strong>D</strong>isc（数字视频光盘）的首字母缩略字，因初推出时大多厂商只针对视频方面的宣传及推出产品，而且当时的电脑产业对高容量的存储媒体没有太大需求。后因定位更改，于1995年规格正式确立时，重新定义为<strong>D</strong>igital <strong>V</strong>ersatile <strong>D</strong>isc（数字多用途光盘），但旧称的Digital Video Disc也有人继续沿用。现在一般都只以“DVD”作为其称呼。</p>
+<p>尽管比DVD容量更大的<a href="https://zh.wikipedia.org/wiki/BD">BD</a>问世十多年，而且年前出现<a href="https://zh.wikipedia.org/wiki/UHD_BD">UHD BD</a>比早期BD有更高<a href="https://zh.wikipedia.org/wiki/%E6%B8%85%E6%99%B0%E5%BA%A6">清晰度</a>，但至今DVD仍然是主力的一线录播影片的媒体，而DVD没有像<a href="https://zh.wikipedia.org/wiki/VCD">VCD</a>在一问世便落后的问题。主要因为大<a href="https://zh.wikipedia.org/wiki/%E8%9E%A2%E5%B9%95">屏幕</a>的电脑和电视机在使用上的不便而未完全普及，而且BD要直接和在其问世前便在使用的<a href="https://zh.wikipedia.org/wiki/%E9%AB%98%E6%B8%85%E9%9B%BB%E8%A6%96">高清电视</a>竞争，使观众可能观看电视台播放相似质量的同一节目，以及DVD价格不高而仍然拥有相当市场，也方便做一些电视台不重播或网络难有片源的旧节目的市贩媒体。</p>
+<h2 id="蓝色激光bd">蓝色激光：BD</h2>
+<p>2003年<a href="https://zh.wikipedia.org/wiki/DVD%E8%AE%BA%E5%9D%9B">DVD论坛</a>以8比6通过HD DVD是DVD配合<a href="https://zh.wikipedia.org/wiki/HDTV">HDTV</a>的下一代产品。在此次会议上，他们将碟片改名为“HD DVD”，之前称为“高级光学碟片”。<a href="https://zh.wikipedia.org/wiki/%E8%97%8D%E5%85%89%E5%85%89%E7%A2%9F">蓝光光盘</a>是由DVD论坛之外的企业发展出的，因此未提交至论坛讨论。</p>
+<p>HD DVD由<a href="https://zh.wikipedia.org/wiki/%E6%9D%B1%E8%8A%9D">东芝</a>、<a href="https://zh.wikipedia.org/wiki/NEC">NEC</a>、<a href="https://zh.wikipedia.org/wiki/%E4%B8%89%E6%B4%8B%E9%9B%BB%E6%A9%9F">三洋电机</a>等企业组成的<a href="https://zh.wikipedia.org/wiki/HD_DVD%E6%8E%A8%E5%BB%A3%E5%8D%94%E6%9C%83">HD DVD推广协会</a>负责推广，<a href="https://zh.wikipedia.org/wiki/%E6%83%A0%E6%99%AE">惠普</a>（同时支持<a href="https://zh.wikipedia.org/wiki/%E8%97%8D%E5%85%89%E5%85%89%E7%A2%9F">BD</a>）、<a href="https://zh.wikipedia.org/wiki/%E5%BE%AE%E8%BB%9F">微软</a>及<a href="https://zh.wikipedia.org/wiki/%E8%8B%B1%E7%89%B9%E7%88%BE">英特尔</a>等相继加入HD DVD阵营，其中的主流片厂<a href="https://zh.wikipedia.org/wiki/%E7%92%B0%E7%90%83%E5%BD%B1%E6%A5%AD">环球影业</a>亦是成员之一。</p>
+<p>但在2008年，随着原先支持HD DVD的<a href="https://zh.wikipedia.org/wiki/%E8%8F%AF%E7%B4%8D%E5%85%AC%E5%8F%B8">华纳公司</a>宣布脱离HD DVD，以及美国数家连锁卖场决定支持蓝光产品，东芝公司终在2008年2月19日正式宣布将终止HD DVD事业。</p>
+<h1 id="详细的分类与特殊格式">详细的分类与特殊格式</h1>
+<p>一个简单而不正确的暴论：覆盖99%情况你能看到的在日常使用的光盘只有CD-R、CD-RW、DVD-R、DVD+R、DVD-RW、DVD+RW、DVD-RAM、BD-R、BD-RE这几种。<br>
+有时候你可能会看到诸如Audio CD、CD-Text、CDDA、CD-Extra、CD-i、CD-ROM、DVD-Video、DVD-ROM等等看起来很复杂没见过的描述，实际上这些光盘要么是一些特殊标准（比如某些唱片要使用特别的格式，或者要在CD里添加封面和歌词的“分区”），要么是根据刻录内容不同的不同功能划分。一部分特殊光盘除了可以从旧货市场里找到，还可以自己从空白光盘刻录。<br>
+最常用的莫过于CD-ROM、DVD-ROM，简而言之又不完全正确：它们都是基于CD-R、DVD-R的空白光盘刻录数据后的名称，往往会把刻录成数据光盘的叫做ROM，而刻录音频镜像的叫做Audio CD（现在的CD唱片大多是这样），刻录影片的叫DVD-Video、BDMV。通过特定文件格式制作刻录的光盘，与数据光盘直接刻录文件不同，光盘会记录分片数据，DVD-Video影片光盘会存在可交互的菜单，BDMV为蓝光版的DVD-Video，其目录格式不同，刻录数据内容也更丰富。在电脑或播放器上使用的方法有很大差异，ROM就像是不能写入的U盘，DVD-Video影片光盘、Audio CD唱片光盘、BDMV影片光盘这些要通过专用的播放器播放，直接打开驱动器你只会得到一堆你看不明白的文件和目录。正版CD唱片都会有唯一的编号，专用的播放器打开可以从网络上获取到专辑封面哦，比如iTunes和Linux上的goobox。</p>
+<h2 id="dvd">DVD</h2>
+<p>再说回分类，一般情况，现在大部分DVD光驱支持三大标准：+、RAM、-。在商品页一般情况标注的速度指DVD最大刻录速度，非刻录机则表示读取速度。下面是某LG光驱的商品spec。<br>
+<img src="https://andyzhuaz.github.io/post-images/1637848860738.png" alt="某LG光驱的商品spec" loading="lazy"><br>
+DVD光盘标准主要分两种，+和-。<br>
+“-”标准由DVD论坛设立制定的格式有DVD-R、DVD-RW和DVD-RAM。DVD论坛的创始成员有<a href="https://zh.wikipedia.org/wiki/%E6%9D%B1%E8%8A%9D">东芝</a>、<a href="https://zh.wikipedia.org/wiki/%E6%9D%BE%E4%B8%8B">松下</a>、<a href="https://zh.wikipedia.org/wiki/%E7%B4%A2%E5%B0%BC">索尼</a>、<a href="https://zh.wikipedia.org/wiki/%E4%B8%89%E8%8F%B1">三菱</a>、<a href="https://zh.wikipedia.org/wiki/%E6%97%A5%E7%AB%8B">日立</a>、<a href="https://zh.wikipedia.org/wiki/%E5%85%88%E9%8B%92%E5%85%AC%E5%8F%B8">先锋</a>、<a href="https://zh.wikipedia.org/wiki/JVC">JVC</a>、<a href="https://zh.wikipedia.org/wiki/%E9%A3%9B%E5%88%A9%E6%B5%A6">飞利浦</a>、<a href="https://zh.wikipedia.org/wiki/%E6%B1%A4%E5%A7%86%E9%80%8A">汤姆逊</a>、<a href="https://zh.wikipedia.org/wiki/%E6%99%82%E4%BB%A3%E8%8F%AF%E7%B4%8D">时代华纳</a>共10家。<br>
+“+”标准由DVD+RW联盟制定，由于DVD-RAM的缺点和兼容性不佳，索尼、飞利浦、三菱、理光等公司组成了这个联盟，推出了DVD+R、DVD+RW、DVD+R DL。<br>
+在DVD+R标准下还存在一个变种，由Millennial公司发明的一次性写入技术M-DISC，或千年光盘，有DVD和蓝光两种类，在2016年12月，Millenniata公司正式破产。需要特定的光驱来刻录M-DISC，例如<a href="https://zh.wikipedia.org/wiki/LG">LG</a>，<a href="https://zh.wikipedia.org/wiki/%E8%8F%AF%E7%A2%A9">华硕</a>和<a href="https://zh.wikipedia.org/wiki/%E5%85%89%E5%AF%B6%E7%A7%91%E6%8A%80">光宝科技</a>生产的光驱均可以刻录M-DISC。<a href="https://zh.wikipedia.org/wiki/%E9%8C%B8%E5%BE%B7%E7%A7%91%E6%8A%80">铼德科技</a>则生产及出售M-DISC。Verbatim亦生产联合品牌的光盘，名为“Verbatim M-DISC”。</p>
+<h3 id="关于可擦写dvd">关于可擦写DVD</h3>
+<p>以DVD-RAM/+RW为代表的可擦写光盘可以一般磁盘的方式进行文件存取使用，无需每次更改时进行擦除刻录，前提是需要将光盘格式化为UDF、ext、HFS等格式，你大可以将其视为U盘。</p>
+<h3 id="极富特点又难用的dvd-ram">极富特点又难用的DVD-RAM</h3>
+<p>观看DVD-RAM的盘面你就会发现很大的不同，DVD-RAM往往是金色盘面上刻有很多竖线，这标志着它与众不同的原理。但是就本人实际体验的结论是不如DVD+RW，索尼NB。<br>
+DVD-RAM(DVD-Random Access Memory)是一种相对特殊的光盘规格，其设计用意 在于资料存储、备份等，同时因为可重写次数的理论值较其他可重写 DVD 规格为高，以及 文件存储的格式更具灵活性。DVD-RAM 的文件存储规格与电脑硬盘及软盘技术相似，资料 均存储于多条同轴心的资料轨(等线速)，随机存取方式与硬盘和磁盘相同，相对于 DVD- RW 及 DVD+RW 以单一螺旋轨存储资料(等角速)，读写时需要依赖特别的数据包读写程 序。<br>
+在 DVD-RAM 的使用上，尤其需要注意文件系统与操作系统的兼容性，目前常见的操 作系统仅有 Windows 可以对 DVD-RAM 进行 UDF 文件系统的格式化，其他常用操作系统 如 Linux 允许将 DVD-RAM 格式化为其支持的文件系统，如 ext3/4，macOS 在新版本取消 了对 UDF 文件系统的支持，且不提供光盘格式化的 GUI，只能通过 CLI 进行 HFS+文件系 统格式化后才能使用。故如果需要在 Linux 系统之间交换资料需要将 DVD-RAM 格式化为 ext4/3 文件系统，如果要在 Windows 与 Linux 之间交换资料需要格式化为 UDF 文件系统。</p>
+<h2 id="cd">CD</h2>
+<p>对于CD的话除了特别的唱片，一般只关注大小两种尺寸的CD-R和CD-RW，这里不多做解释。</p>
+<h1 id="在linux上检查光驱和光盘信息的一些方法">在Linux上检查光驱和光盘信息的一些方法</h1>
+<pre><code>dmesg | egrep -i 'DVD|CD-ROM'
+lshw | grep -i cdrom -A 20
+hwinfo | grep -i CD-ROM -A 30
+cat /proc/sys/dev/cdrom/info
+</code></pre>
+<h1 id="未完待续">未完待续</h1>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://andyzhuaz.github.io/post/linux-xi-tong-ru-he-jiang-amd-xian-qia-qu-dong-cong-radeon-geng-huan-wei-amdgpu/">
+                  <h3 class="post-title">
+                    Linux系统如何将AMD显卡驱动从Radeon更换为amdgpu
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '097d7b64037dc9cfc0c6',
+        clientSecret: 'be9557ddef753969b8d9c01c48b51dfc34508a95',
+        repo: 'andyzhuaz.github.io',
+        owner: 'AndyZhuAZ',
+        admin: ['AndyZhuAZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
