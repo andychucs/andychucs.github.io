@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://andyzhuaz.github.io</id>
     <title>Andy Blog</title>
-    <updated>2021-11-25T15:34:32.522Z</updated>
+    <updated>2021-11-27T11:06:21.357Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://andyzhuaz.github.io"/>
     <link rel="self" href="https://andyzhuaz.github.io/atom.xml"/>
@@ -10,6 +10,15 @@
     <logo>https://andyzhuaz.github.io/images/avatar.png</logo>
     <icon>https://andyzhuaz.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, Andy Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Ubuntu Linux重启指定次数脚本]]></title>
+        <id>https://andyzhuaz.github.io/post/linux-chong-qi-zhi-ding-ci-shu-jiao-ben/</id>
+        <link href="https://andyzhuaz.github.io/post/linux-chong-qi-zhi-ding-ci-shu-jiao-ben/">
+        </link>
+        <updated>2021-11-27T10:58:36.000Z</updated>
+        <content type="html"><![CDATA[<p>某些时候需要将计算机连续或定时重启，网上的一些代码可以在rhel系的Linux上使用，在Ubuntu系上可能存在问题，下面是我自己写的脚本，专门针对Ubuntu系。</p>
+<script src="https://gist.github.com/AndyZhuAZ/5b9f5191c7c92b120609a06746568065.js"></script>]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[时之泪——关于光盘的研究：在Linux操作系统上如何使用光驱、光盘与光驱的简单科普]]></title>
         <id>https://andyzhuaz.github.io/post/shi-zhi-lei-guan-yu-guang-pan-de-yan-jiu-zai-linux-cao-zuo-xi-tong-shang-ru-he-shi-yong-guang-qu-guang-pan-yu-guang-qu-de-jian-dan-ke-pu/</id>
