@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://andyzhuaz.github.io</id>
     <title>Andy Blog</title>
-    <updated>2021-12-24T08:34:17.292Z</updated>
+    <updated>2021-12-24T08:36:08.685Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://andyzhuaz.github.io"/>
     <link rel="self" href="https://andyzhuaz.github.io/atom.xml"/>
@@ -44,12 +44,12 @@ def get_file_list():
     return rst
 
 
-def formatFloat(num):
+def format_float(num):
     return '{:.2f}'.format(num)
 
 
-def downloadFile(name, url, s):
-    r = s.get(url, stream=True)
+def download_file(name, u, s):
+    r = s.get(u, stream=True)
     length = float(r.headers['content-length'])
     f = open(name, 'wb')
     count = 0
@@ -63,7 +63,7 @@ def downloadFile(name, url, s):
                 p = count / length * 100
                 speed = (count - count_tmp) / 1024 / 1024 / 2
                 count_tmp = count
-                print(name + ': ' + formatFloat(p) + '%' + ' Speed: ' + formatFloat(speed) + 'M/S')
+                print(name + ': ' + format_float(p) + '%' + ' Speed: ' + format_float(speed) + 'M/S')
                 time1 = time.time()
     f.close()
 
@@ -73,7 +73,7 @@ if __name__ == '__main__':
     session.headers = headers
     file_list = get_file_list()
     for i in file_list:
-        downloadFile(i, url + i, session)
+        download_file(i, url + i, session)
 </code></pre>
 ]]></content>
     </entry>
