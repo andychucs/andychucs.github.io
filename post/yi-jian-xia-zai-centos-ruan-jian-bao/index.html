@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Linux | Andy Blog</title>
+<title>一键下载CentOS软件包 | Andy Blog</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -12,13 +12,21 @@
 <link rel="stylesheet" href="https://andyzhuaz.github.io/styles/main.css">
 
 
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 
 
-    <meta name="description" content="少即是多">
+    <meta name="description" content="内网隔离的环境下需要安装软件包，除了自建源之外一个简单可行的方法就是直接从其他设备下载所需软件包，但是诸如centos cbs软件包是没有一键下载整个目录的，这个爬虫脚本就是用于解决这个问题的。直接更换url即可使用。
+..." />
+    <meta name="keywords" content="" />
   </head>
   <body>
     <div id="app" class="main">
@@ -92,33 +100,35 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: Linux</h2>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://andyzhuaz.github.io/post/linux-xi-tong-ru-he-jiang-amd-xian-qia-qu-dong-cong-radeon-geng-huan-wei-amdgpu/">
-                  <h2 class="post-title">Linux系统如何将AMD显卡驱动从Radeon更换为amdgpu</h2>
+          <div class="post-detail">
+            <h2 class="post-title">一键下载CentOS软件包</h2>
+            <div class="post-date">2021-12-24</div>
+            
+            <div class="post-content" v-pre>
+              <p>内网隔离的环境下需要安装软件包，除了自建源之外一个简单可行的方法就是直接从其他设备下载所需软件包，但是诸如centos cbs软件包是没有一键下载整个目录的，这个爬虫脚本就是用于解决这个问题的。直接更换url即可使用。</p>
+<script src="https://gist.github.com/AndyZhuAZ/28baa2cd4eaedd0e70d9174b4076109b.js"></script>
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://andyzhuaz.github.io/post/linux-chong-qi-zhi-ding-ci-shu-jiao-ben/">
+                  <h3 class="post-title">
+                    Ubuntu Linux重启指定次数脚本
+                  </h3>
                 </a>
-                <div class="post-date">
-                  2021-10-17
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
               </div>
-              
-                <a class="right" href="https://andyzhuaz.github.io/post/linux-xi-tong-ru-he-jiang-amd-xian-qia-qu-dong-cong-radeon-geng-huan-wei-amdgpu/">
-                  <div class="feature-container" style="background-image: url('https://andyzhuaz.github.io/post-images/linux-xi-tong-ru-he-jiang-amd-xian-qia-qu-dong-cong-radeon-geng-huan-wei-amdgpu.png')">
-                  </div>
-                </a>
-              
-            </article>
-          
+            
 
-          <div class="pagination-container">
-  
-  
-</div>
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
 
         </div>
       </div>
@@ -144,6 +154,29 @@ var app = new Vue({
     hljs.initHighlightingOnLoad()
   </script>
 
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '097d7b64037dc9cfc0c6',
+        clientSecret: 'be9557ddef753969b8d9c01c48b51dfc34508a95',
+        repo: 'andyzhuaz.github.io',
+        owner: 'AndyZhuAZ',
+        admin: ['AndyZhuAZ'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
 
 
 
