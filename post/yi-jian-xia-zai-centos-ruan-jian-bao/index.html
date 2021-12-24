@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://andyzhuaz.github.io/favicon.ico?v=1640324967563">
+<link rel="shortcut icon" href="https://andyzhuaz.github.io/favicon.ico?v=1640334853824">
 <link rel="stylesheet" href="https://andyzhuaz.github.io/styles/main.css">
 
 
@@ -25,7 +25,7 @@
 
 
     <meta name="description" content="内网隔离的环境下需要安装软件包，除了自建源之外一个简单可行的方法就是直接从其他设备下载所需软件包，但是诸如centos cbs软件包是没有一键下载整个目录的，这个爬虫脚本就是用于解决这个问题的。直接更换url即可使用。
-..." />
+import tim..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -35,7 +35,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://andyzhuaz.github.io">
-        <img src="https://andyzhuaz.github.io/images/avatar.png?v=1640324967563" class="site-logo">
+        <img src="https://andyzhuaz.github.io/images/avatar.png?v=1640334853824" class="site-logo">
         <h1 class="site-title">Andy Blog</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -106,7 +106,65 @@
             
             <div class="post-content" v-pre>
               <p>内网隔离的环境下需要安装软件包，除了自建源之外一个简单可行的方法就是直接从其他设备下载所需软件包，但是诸如centos cbs软件包是没有一键下载整个目录的，这个爬虫脚本就是用于解决这个问题的。直接更换url即可使用。</p>
-<script src="https://gist.github.com/AndyZhuAZ/28baa2cd4eaedd0e70d9174b4076109b.js"></script>
+<pre><code class="language-python">import time
+
+import requests
+from bs4 import BeautifulSoup
+
+headers = {
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Accept-Language': 'en-US,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.5,zh-HK;q=0.3,en;q=0.2',
+    'Connection': 'keep-alive',
+    'Host': 'cbs.centos.org',
+    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:79.0) Gecko/20100101 Firefox/79.0'
+}
+# Assign url to the address of the page you need to download 
+url = 'https://cbs.centos.org/kojifiles/packages/ceph/12.2.5/0.el7/aarch64/'
+
+
+def get_file_list():
+    response = session.get(url)
+    soup = BeautifulSoup(response.text, 'html.parser')
+    # print(soup)
+    rst = []
+    for i in soup.find_all('a')[13:]:
+        rst.append(i['href'])
+    return rst
+
+
+def formatFloat(num):
+    return '{:.2f}'.format(num)
+
+
+def downloadFile(name, url, s):
+    r = s.get(url, stream=True)
+    length = float(r.headers['content-length'])
+    f = open(name, 'wb')
+    count = 0
+    count_tmp = 0
+    time1 = time.time()
+    for chunk in r.iter_content(chunk_size=512):
+        if chunk:
+            f.write(chunk)
+            count += len(chunk)
+            if time.time() - time1 &gt; 2:
+                p = count / length * 100
+                speed = (count - count_tmp) / 1024 / 1024 / 2
+                count_tmp = count
+                print(name + ': ' + formatFloat(p) + '%' + ' Speed: ' + formatFloat(speed) + 'M/S')
+                time1 = time.time()
+    f.close()
+
+
+if __name__ == '__main__':
+    session = requests.Session()
+    session.headers = headers
+    file_list = get_file_list()
+    for i in file_list:
+        downloadFile(i, url + i, session)
+</code></pre>
+
             </div>
             
             
