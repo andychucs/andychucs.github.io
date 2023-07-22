@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://andychucs.github.io/favicon.ico?v=1690021884250">
+<link rel="shortcut icon" href="https://andychucs.github.io/favicon.ico?v=1690022077714">
 <link rel="stylesheet" href="https://andychucs.github.io/styles/main.css">
 
 
@@ -39,7 +39,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://andychucs.github.io">
-        <img src="https://andychucs.github.io/images/avatar.png?v=1690021884250" class="site-logo">
+        <img src="https://andychucs.github.io/images/avatar.png?v=1690022077714" class="site-logo">
         <h1 class="site-title">Andy Blog</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -120,7 +120,7 @@
 <li>我们需要使用上面的日志使用<code>sendevent</code>命令来发送操作事件。但是上面的日志获取到的值为16进制，<code>sendevent</code>所需的参数为10进制，接下来进行转换。</li>
 <li>下载该python脚本 <a href="https://gist.github.com/andychucs/ae87688ccea3ff04dd15f4cd8c59e84a">getevent_to_sendevent.py</a></li>
 </ol>
-<pre><code class="language-python3">import os
+<pre><code class="language-python">import os
 import sys
 
 filename = sys.argv[-1]
@@ -139,7 +139,7 @@ if filename != os.path.abspath(__file__):
                content = f'{prefix} {device} {_type} {code} {value}\n'
                fw.write(content)
 </code></pre>
-<ol start="10">
+<ol>
 <li>运行<code>python getevent_to_sendevent.py events</code>即可生成一个sh文件<code>events.sh</code></li>
 <li>执行<code>adb push events.sh /sdcard/events.sh</code></li>
 <li>执行<code>adb shell sh /sdcard/events.sh</code></li>
