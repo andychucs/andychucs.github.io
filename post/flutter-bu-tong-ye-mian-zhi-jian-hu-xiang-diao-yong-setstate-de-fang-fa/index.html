@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>在Android设备上模拟多指手势的方法 | Andy Blog</title>
+<title>Flutter不同页面之间互相调用setState的方法 | Andy Blog</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,12 +24,9 @@
 
 
 
-    <meta name="description" content="
-链接Android设备到电脑。
-执行adb命令: adb shell getevent
-此时触控手机屏幕，会看到命令窗口中打印出一堆设备日志。
-打印出的/dev/input/event即为该手机的触屏事件。
-接下来根据上一步获得的even..." />
+    <meta name="description" content="有时候不同页面之间不是上下层路由关系而是堆叠，子页面状态改变时不会返回，父页面不会重新build，这时需要从子页面去调用父页面的setState来更新。
+子页面调用父页面setState
+最简单的方法，在子页面定义一个回调函数。这里是not..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -105,54 +102,83 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">在Android设备上模拟多指手势的方法</h2>
-            <div class="post-date">2023-07-22</div>
+            <h2 class="post-title">Flutter不同页面之间互相调用setState的方法</h2>
+            <div class="post-date">2023-08-12</div>
             
             <div class="post-content" v-pre>
-              <ol>
-<li>链接Android设备到电脑。</li>
-<li>执行adb命令: <code>adb shell getevent</code></li>
-<li>此时触控手机屏幕，会看到命令窗口中打印出一堆设备日志。</li>
-<li>打印出的/dev/input/event即为该手机的触屏事件。</li>
-<li>接下来根据上一步获得的event，修改该命令为该设备的命令：<code>adb shell getevent | grep dev/input/event &gt; events</code></li>
-<li>执行上述命令，并在手机上完成你需要的手势操作，完成操作之后关闭命令。</li>
-<li>此时我们可以获得一份名为events的操作日志。</li>
-<li>我们需要使用上面的日志使用<code>sendevent</code>命令来发送操作事件。但是上面的日志获取到的值为16进制，<code>sendevent</code>所需的参数为10进制，接下来进行转换。</li>
-<li>下载该python脚本 <a href="https://gist.github.com/andychucs/ae87688ccea3ff04dd15f4cd8c59e84a">getevent_to_sendevent.py</a></li>
-</ol>
-<pre><code class="language-python">import os
-import sys
+              <p>有时候不同页面之间不是上下层路由关系而是堆叠，子页面状态改变时不会返回，父页面不会重新build，这时需要从子页面去调用父页面的setState来更新。</p>
+<h1 id="子页面调用父页面setstate">子页面调用父页面setState</h1>
+<p>最简单的方法，在子页面定义一个回调函数。这里是notifyParent，在需要时调用即可。</p>
+<pre><code class="language-dart">class ToolsPage extends ConsumerStatefulWidget {
+  ToolsPage({Key? key, required this.notifyParent})
+      : super(key: key);
 
-filename = sys.argv[-1]
+  final Function() notifyParent;
 
-if filename != os.path.abspath(__file__):
-   prefix = 'sendevent'
-   with open(filename, 'r') as f:
-       with open(filename+'.sh', 'w') as fw:
-           fw.write('#!/bin/sh\n')
-           for line in f.readlines():
-               event = line.split(' ')
-               device = event[0][:-1]
-               _type = '%04d' % int(event[1], 16)
-               code = '%04d' % int(event[2], 16)
-               value = '%08d' % int(event[3], 16)
-               content = f'{prefix} {device} {_type} {code} {value}\n'
-               fw.write(content)
+  @override
+  ConsumerState&lt;ToolsPage&gt; createState() =&gt; _ToolsPageState();
+}
 </code></pre>
-<ol>
-<li>运行<code>python getevent_to_sendevent.py events</code>即可生成一个sh文件<code>events.sh</code></li>
-<li>执行<code>adb push events.sh /sdcard/events.sh</code></li>
-<li>执行<code>adb shell sh /sdcard/events.sh</code></li>
-</ol>
+<p>父页面声明时这样声明。</p>
+<pre><code class="language-dart">ToolsPage(notifyParent: () =&gt; setState(() {}));
+</code></pre>
+<h1 id="任意页面之间互相调用setstate">任意页面之间互相调用setState</h1>
+<p>页面关系复杂时，可能堆叠、路由都存在，要想让两个不同的孙节点互相更新状态或者导航时，最简单的方法是用provider来管理页面的方法。</p>
+<p>下面是使用riverpod的例子。定义一个页面的provider来管理该页面的context和setState方法。就可以在任意页面完成对其他页面的状态更新和导航了。虽然riverpod会自动销毁，但provider还是全局的，还是尽量少用这样的奇技淫巧吧。</p>
+<pre><code class="language-dart">import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'navigator_provider.g.dart';
+
+
+@riverpod
+class FunctionLayerNavigator extends _$FunctionLayerNavigator {
+  late BuildContext context;
+  late Function setState;
+  @override
+  FunctionLayerNavigator build() {
+    return this;
+  }
+
+  void init(BuildContext context, Function setState) {
+    state.context = context;
+    state.setState = setState;
+  }
+
+  void push(Widget widget) =&gt;
+      Navigator.of(state.context).push(CupertinoPageRoute&lt;Widget&gt;(
+        builder: (BuildContext context) {
+          return widget;
+        },
+      ));
+
+  void pop&lt;T extends Object?&gt;([T? result]) =&gt;
+      Navigator.of(state.context).pop&lt;T&gt;(result);
+}
+</code></pre>
+<p>使用时，在要管理的页面对provider进行声明和初始化。</p>
+<pre><code class="language-dart">  Widget build(BuildContext context) {
+    final navigator = ref.watch(functionLayerNavigatorProvider);
+    navigator.init(context, () =&gt; setState(() {}));
+</code></pre>
+<p>调用provider，使用时最好还是在provider内部定义调用state的方法，这样方便在调用前检查是否有初始化，避免产生异常。例如：</p>
+<pre><code class="language-dart">  void changeIndex(int index) {
+    state.index = index;
+    state.setState();
+  }
+
+  navigator.changeIndex(1); // GOOD
+
+  navigator.setState(); //BAD
+</code></pre>
 
             </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://andychucs.github.io/post/yi-jian-xia-zai-centos-ruan-jian-bao/">
+                <a href="https://andychucs.github.io/post/zai-android-she-bei-shang-mo-ni-duo-zhi-shou-shi-de-fang-fa/">
                   <h3 class="post-title">
-                    一键下载CentOS软件包
+                    在Android设备上模拟多指手势的方法
                   </h3>
                 </a>
               </div>

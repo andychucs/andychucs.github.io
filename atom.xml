@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://andychucs.github.io</id>
     <title>Andy Blog</title>
-    <updated>2023-07-22T10:34:42.244Z</updated>
+    <updated>2023-08-12T14:16:43.578Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://andychucs.github.io"/>
     <link rel="self" href="https://andychucs.github.io/atom.xml"/>
@@ -10,6 +10,78 @@
     <logo>https://andychucs.github.io/images/avatar.png</logo>
     <icon>https://andychucs.github.io/favicon.ico</icon>
     <rights>All rights reserved 2023, Andy Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Flutter不同页面之间互相调用setState的方法]]></title>
+        <id>https://andychucs.github.io/post/flutter-bu-tong-ye-mian-zhi-jian-hu-xiang-diao-yong-setstate-de-fang-fa/</id>
+        <link href="https://andychucs.github.io/post/flutter-bu-tong-ye-mian-zhi-jian-hu-xiang-diao-yong-setstate-de-fang-fa/">
+        </link>
+        <updated>2023-08-12T13:47:45.000Z</updated>
+        <content type="html"><![CDATA[<p>有时候不同页面之间不是上下层路由关系而是堆叠，子页面状态改变时不会返回，父页面不会重新build，这时需要从子页面去调用父页面的setState来更新。</p>
+<h1 id="子页面调用父页面setstate">子页面调用父页面setState</h1>
+<p>最简单的方法，在子页面定义一个回调函数。这里是notifyParent，在需要时调用即可。</p>
+<pre><code class="language-dart">class ToolsPage extends ConsumerStatefulWidget {
+  ToolsPage({Key? key, required this.notifyParent})
+      : super(key: key);
+
+  final Function() notifyParent;
+
+  @override
+  ConsumerState&lt;ToolsPage&gt; createState() =&gt; _ToolsPageState();
+}
+</code></pre>
+<p>父页面声明时这样声明。</p>
+<pre><code class="language-dart">ToolsPage(notifyParent: () =&gt; setState(() {}));
+</code></pre>
+<h1 id="任意页面之间互相调用setstate">任意页面之间互相调用setState</h1>
+<p>页面关系复杂时，可能堆叠、路由都存在，要想让两个不同的孙节点互相更新状态或者导航时，最简单的方法是用provider来管理页面的方法。</p>
+<p>下面是使用riverpod的例子。定义一个页面的provider来管理该页面的context和setState方法。就可以在任意页面完成对其他页面的状态更新和导航了。虽然riverpod会自动销毁，但provider还是全局的，还是尽量少用这样的奇技淫巧吧。</p>
+<pre><code class="language-dart">import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'navigator_provider.g.dart';
+
+
+@riverpod
+class FunctionLayerNavigator extends _$FunctionLayerNavigator {
+  late BuildContext context;
+  late Function setState;
+  @override
+  FunctionLayerNavigator build() {
+    return this;
+  }
+
+  void init(BuildContext context, Function setState) {
+    state.context = context;
+    state.setState = setState;
+  }
+
+  void push(Widget widget) =&gt;
+      Navigator.of(state.context).push(CupertinoPageRoute&lt;Widget&gt;(
+        builder: (BuildContext context) {
+          return widget;
+        },
+      ));
+
+  void pop&lt;T extends Object?&gt;([T? result]) =&gt;
+      Navigator.of(state.context).pop&lt;T&gt;(result);
+}
+</code></pre>
+<p>使用时，在要管理的页面对provider进行声明和初始化。</p>
+<pre><code class="language-dart">  Widget build(BuildContext context) {
+    final navigator = ref.watch(functionLayerNavigatorProvider);
+    navigator.init(context, () =&gt; setState(() {}));
+</code></pre>
+<p>调用provider，使用时最好还是在provider内部定义调用state的方法，这样方便在调用前检查是否有初始化，避免产生异常。例如：</p>
+<pre><code class="language-dart">  void changeIndex(int index) {
+    state.index = index;
+    state.setState();
+  }
+
+  navigator.changeIndex(1); // GOOD
+
+  navigator.setState(); //BAD
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[在Android设备上模拟多指手势的方法]]></title>
         <id>https://andychucs.github.io/post/zai-android-she-bei-shang-mo-ni-duo-zhi-shou-shi-de-fang-fa/</id>
@@ -357,36 +429,6 @@ c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1s-109,-253,-109,-253c-72.7,-168,-109.3,
 s76,-59,76,-59s76,-60,76,-60z M1001 80H40000v40H1012z'/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.25612499999999994em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">6</span><span class="mord">4</span></span></span></span></span></p>
 <figure data-type="image" tabindex="1"><img src="https://andychucs.github.io/post-images/1586096168310.png" alt="" loading="lazy"></figure>
 <p><a href="https://wilkie.how/posts/learning-mistakes-from-doom-masters">参考文章</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Coursera慕课学习体验与助学金申请]]></title>
-        <id>https://andychucs.github.io/post/coursera-mu-ke-xue-xi-ti-yan-yu-zhu-xue-jin-shen-qing/</id>
-        <link href="https://andychucs.github.io/post/coursera-mu-ke-xue-xi-ti-yan-yu-zhu-xue-jin-shen-qing/">
-        </link>
-        <updated>2020-03-16T12:18:08.000Z</updated>
-        <summary type="html"><![CDATA[<p>coursera 学习 助学金申请</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>coursera 学习 助学金申请</p>
-<!-- more -->
-<p>学校没有开学，作为大四党，目前呆在家里也没有学校的网课可以学，除了努力找工作，还有就是继续学习技能，上个月看到密歇根大学在微博上发的对中国学生提供每月6人民币的课程优惠价，所以第一次尝试了Coursera，之前除了在中国大学MOOC学习，国外的慕课也只接触过优达学城，但是我的体验并不好，一方面是访问速度，一方面是课程价格，学习一下免费的课程也还可以，比如谷歌的几个，但是已经很久没用了也就不做评价了。<br>
-<a href="https://weibo.com/2661683041/Iv2f05EeK">密歇根大学微博</a>，订阅需要注意准备一张Visa、MasterCard卡组织的信用卡或借记卡，Discover、JCB 、American Express卡组织的信用卡，还需要注意的是Coursera的视频是存在亚马逊云的所以国内访问会有问题，网上看到的改hosts并没有什么用，我直接挂代理了，而且系统代理+pac没有用，最好直接用SwitchyOmega插件创建一个全局代理的情景模式。我使用了交行的大学生卡Visa银联双标。扣款账单抵达当天交行会打电话核对是否是本人交易。<br>
-<img src="https://tva1.sinaimg.cn/large/00831rSTly1gcw25bipn6j30em0f10wf.jpg" alt="" loading="lazy"><br>
-订阅了 密歇根大学 的 Python 3 Programming之后，因为正在学习游戏开发又看上了 科罗拉多大学系统 的 C# Programming for Unity Game Development，但是一个月50美元的费用对我来说还是太贵，于是申请了助学金，几乎所以课程都有助学金，需要注意的是现在申请助学金需要15天的审核期，在这期间不能免费试用，否则会撤回申请。</p>
-<p>几乎所有课程都有助学金。<br>
-<img src="https://tva1.sinaimg.cn/large/00831rSTly1gcw21mpt41j30oi0e6n3h.jpg" alt="" loading="lazy"></p>
-<p>下面是我的申请信，两段内容分别说明个人状况和学习这门课程的原因。不过看到网上有人说内容并不重要，我还是真诚一些把实际情况写了出来。</p>
-<p>I am a college student at xxxx University which located in Amoy, China.My major is computer science. I ’m from Gansu Province, China ’s least developed province. （家庭经济状况）Since I don't want to put more burden on my family, I request Coursera for financial aid, and I promise to finish the course. These days are my first contact with Coursera because I saw course discounts offered by the University of Michigan for Chinese students on social media before I tried Coursera.I really like Coursera ,and I think Coursera is a very good platform for people to learn something they need, I hope I can learn something by studying in Coursera. I hope you can agree to my application.</p>
-<p>I have always wanted to work in game development. I found this course when I was searching for a new course on the homepage and I am studying Unity game development.But my school doesn't offer game design courses. Graduating a year later, I am anxious about finding a job. There are many game companies in China that use the Unity engine. In this course, I hope to learn how to use Unity for game development and C# programming. I am a complete rookie on Unity and C # now. I hope to gain experience in unity game development through this course. So that I can get a chance to get an internship in a game company.I have encountered difficulties in studying Unity now, and I hope this course will help me. I will learn c# programming and unity,Object-Oriented Programming for Unity Games and Data Structures and Design Patterns for Game Developers.</p>
-<p>申请获批后会收到一封邮件，可以开始学习了。<br>
-<img src="https://tva1.sinaimg.cn/large/00831rSTly1gcw21b30guj30ha0aj759.jpg" alt="" loading="lazy"></p>
-<p>下面是学习体验，密歇根的python课评审是基于密大自己的平台评分的，全部自动，因为会python学的有点散漫，前几周的课程基本上选择直接做课外内容和评分作业，第一个互动作业是用turtle库绘制复杂图像，我画了斐波纳切数列的图片，但是不知道为什么密大的平台提交图片一直是500错误，所以也没体验到什么互动。<br>
-<img src="https://tva1.sinaimg.cn/large/00831rSTly1gcw2fhy7vfj30es0cfaa4.jpg" alt="" loading="lazy"></p>
-<p>科罗拉多大学的c#游戏开发是用Coursera自己的平台评分的，每周课程都有互评作业，可以看到别人给自己的打分和评语，让我想起在中国大学MOOC上学摄影时的体验了，不过Coursera的体验更好，第二周课程一个外国人还用中文发了评语😂。<br>
-<img src="https://tva1.sinaimg.cn/large/00831rSTly1gcw2lu8j7yj309y08p74l.jpg" alt="" loading="lazy"><br>
-这次互评作业还发现一个复制别人作业的，因为他复制到我头上了，抄代码也就算了，更过分的是他直接复制了我的运行效果截图，一眼就发现了，为了确认是不是系统缓存问题刷了几次再次刷到那篇作业，确认是抄袭就向Coursera报告了抄袭案例。<br>
-这是处理完毕的邮件回复。<br>
-<img src="https://tva1.sinaimg.cn/large/00831rSTly1gcw2pgvkwxj30hp0cljsq.jpg" alt="" loading="lazy"></p>
 ]]></content>
     </entry>
 </feed>
