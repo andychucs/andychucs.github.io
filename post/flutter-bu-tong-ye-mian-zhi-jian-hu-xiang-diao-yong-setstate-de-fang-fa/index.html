@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://andychucs.github.io/favicon.ico?v=1691849796127">
+<link rel="shortcut icon" href="https://andychucs.github.io/favicon.ico?v=1692232294033">
 <link rel="stylesheet" href="https://andychucs.github.io/styles/main.css">
 
 
@@ -36,7 +36,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://andychucs.github.io">
-        <img src="https://andychucs.github.io/images/avatar.png?v=1691849796127" class="site-logo">
+        <img src="https://andychucs.github.io/images/avatar.png?v=1692232294033" class="site-logo">
         <h1 class="site-title">Andy Blog</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -113,7 +113,7 @@
   ToolsPage({Key? key, required this.notifyParent})
       : super(key: key);
 
-  final Function() notifyParent;
+  final VoidCallback notifyParent;
 
   @override
   ConsumerState&lt;ToolsPage&gt; createState() =&gt; _ToolsPageState();
@@ -169,6 +169,27 @@ class FunctionLayerNavigator extends _$FunctionLayerNavigator {
   navigator.changeIndex(1); // GOOD
 
   navigator.setState(); //BAD
+</code></pre>
+<h1 id="最佳方案">最佳方案</h1>
+<p>上面的方法实际上并不是provider的正确使用方法。</p>
+<p>利用riverpod解决这个问题有更合理的方法，我们为什么要在其他widget调用另一个widget的setState呢？因为我们想刷新内部数据，那么我们使用StateProvider就能轻松解决这一问题。例如下面实现themeProvider，就能实在任何组件内容现主题的切换了。</p>
+<pre><code>final themeProvider = StateProvider&lt;ThemeMode&gt;((ref) {
+  return ThemeMode.system;
+});
+
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeProvider);
+
+    return MaterialApp(
+      themeMode: themeMode,
+    );
+  }
+}
+
 </code></pre>
 
             </div>

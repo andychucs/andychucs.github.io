@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://andychucs.github.io</id>
     <title>Andy Blog</title>
-    <updated>2023-08-12T14:16:43.578Z</updated>
+    <updated>2023-08-17T00:31:38.763Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://andychucs.github.io"/>
     <link rel="self" href="https://andychucs.github.io/atom.xml"/>
@@ -23,7 +23,7 @@
   ToolsPage({Key? key, required this.notifyParent})
       : super(key: key);
 
-  final Function() notifyParent;
+  final VoidCallback notifyParent;
 
   @override
   ConsumerState&lt;ToolsPage&gt; createState() =&gt; _ToolsPageState();
@@ -79,6 +79,27 @@ class FunctionLayerNavigator extends _$FunctionLayerNavigator {
   navigator.changeIndex(1); // GOOD
 
   navigator.setState(); //BAD
+</code></pre>
+<h1 id="最佳方案">最佳方案</h1>
+<p>上面的方法实际上并不是provider的正确使用方法。</p>
+<p>利用riverpod解决这个问题有更合理的方法，我们为什么要在其他widget调用另一个widget的setState呢？因为我们想刷新内部数据，那么我们使用StateProvider就能轻松解决这一问题。例如下面实现themeProvider，就能实在任何组件内容现主题的切换了。</p>
+<pre><code>final themeProvider = StateProvider&lt;ThemeMode&gt;((ref) {
+  return ThemeMode.system;
+});
+
+class MyApp extends ConsumerWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeProvider);
+
+    return MaterialApp(
+      themeMode: themeMode,
+    );
+  }
+}
+
 </code></pre>
 ]]></content>
     </entry>
