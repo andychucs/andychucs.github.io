@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://andychucs.github.io</id>
     <title>Andy Blog</title>
-    <updated>2023-08-22T15:23:01.448Z</updated>
+    <updated>2023-08-22T16:05:10.463Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://andychucs.github.io"/>
     <link rel="self" href="https://andychucs.github.io/atom.xml"/>
@@ -34,7 +34,7 @@
 </code></pre>
 <h1 id="任意页面之间互相调用setstate">任意页面之间互相调用setState</h1>
 <p>页面关系复杂时，可能堆叠、路由都存在，要想让两个不同的孙节点互相更新状态或者导航时，最简单的方法是用provider来管理页面的方法。</p>
-<p>下面是使用riverpod的例子。定义一个页面的provider来管理该页面的context和setState方法。就可以在任意页面完成对其他页面的状态更新和导航了。但是这个方法并不好，还是尽量少用这样的奇技淫巧吧。</p>
+<p>下面是使用riverpod的例子。定义一个页面的provider来管理该页面的context和setState方法。就可以在任意页面完成对其他页面的状态更新和导航了。但是这个方法并不好，尤其需要注意被调用的页面是否会被注销，否则会造成内存泄露。还是尽量少用这样的奇技淫巧吧。</p>
 <pre><code>import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'navigator_provider.g.dart';
