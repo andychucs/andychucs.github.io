@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://andychucs.github.io</id>
     <title>Andy Blog</title>
-    <updated>2023-08-17T00:31:38.763Z</updated>
+    <updated>2023-08-22T15:23:01.448Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://andychucs.github.io"/>
     <link rel="self" href="https://andychucs.github.io/atom.xml"/>
@@ -19,7 +19,7 @@
         <content type="html"><![CDATA[<p>有时候不同页面之间不是上下层路由关系而是堆叠，子页面状态改变时不会返回，父页面不会重新build，这时需要从子页面去调用父页面的setState来更新。</p>
 <h1 id="子页面调用父页面setstate">子页面调用父页面setState</h1>
 <p>最简单的方法，在子页面定义一个回调函数。这里是notifyParent，在需要时调用即可。</p>
-<pre><code class="language-dart">class ToolsPage extends ConsumerStatefulWidget {
+<pre><code>class ToolsPage extends ConsumerStatefulWidget {
   ToolsPage({Key? key, required this.notifyParent})
       : super(key: key);
 
@@ -34,8 +34,8 @@
 </code></pre>
 <h1 id="任意页面之间互相调用setstate">任意页面之间互相调用setState</h1>
 <p>页面关系复杂时，可能堆叠、路由都存在，要想让两个不同的孙节点互相更新状态或者导航时，最简单的方法是用provider来管理页面的方法。</p>
-<p>下面是使用riverpod的例子。定义一个页面的provider来管理该页面的context和setState方法。就可以在任意页面完成对其他页面的状态更新和导航了。虽然riverpod会自动销毁，但provider还是全局的，还是尽量少用这样的奇技淫巧吧。</p>
-<pre><code class="language-dart">import 'package:riverpod_annotation/riverpod_annotation.dart';
+<p>下面是使用riverpod的例子。定义一个页面的provider来管理该页面的context和setState方法。就可以在任意页面完成对其他页面的状态更新和导航了。但是这个方法并不好，还是尽量少用这样的奇技淫巧吧。</p>
+<pre><code>import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'navigator_provider.g.dart';
 
@@ -66,12 +66,12 @@ class FunctionLayerNavigator extends _$FunctionLayerNavigator {
 }
 </code></pre>
 <p>使用时，在要管理的页面对provider进行声明和初始化。</p>
-<pre><code class="language-dart">  Widget build(BuildContext context) {
+<pre><code>  Widget build(BuildContext context) {
     final navigator = ref.watch(functionLayerNavigatorProvider);
     navigator.init(context, () =&gt; setState(() {}));
 </code></pre>
 <p>调用provider，使用时最好还是在provider内部定义调用state的方法，这样方便在调用前检查是否有初始化，避免产生异常。例如：</p>
-<pre><code class="language-dart">  void changeIndex(int index) {
+<pre><code>  void changeIndex(int index) {
     state.index = index;
     state.setState();
   }
