@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>一键下载CentOS软件包 | Andy Blog</title>
+<title>自动化UI测试中的不可见字符问题 | Andy Blog</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,8 +24,7 @@
 
 
 
-    <meta name="description" content="内网隔离的环境下需要安装软件包，除了自建源之外一个简单可行的方法就是直接从其他设备下载所需软件包，但是诸如centos cbs软件包是没有一键下载整个目录的，这个爬虫脚本就是用于解决这个问题的。直接更换url即可使用。
-import tim..." />
+    <meta name="description" content="在自动化UI测试的过程中，我们经常需要对从用户界面获取的字符串进行断言。然而，这个流程可能会因为一些特殊的、不可见的字符而变得复杂。一个常见的例子就是HTML中的非换行空格（NBSP）。在用户界面上，这些字符可能是不可见的，但在HTML源代..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -101,78 +100,28 @@ import tim..." />
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">一键下载CentOS软件包</h2>
-            <div class="post-date">2021-12-24</div>
+            <h2 class="post-title">自动化UI测试中的不可见字符问题</h2>
+            <div class="post-date">2023-12-10</div>
             
             <div class="post-content" v-pre>
-              <p>内网隔离的环境下需要安装软件包，除了自建源之外一个简单可行的方法就是直接从其他设备下载所需软件包，但是诸如centos cbs软件包是没有一键下载整个目录的，这个爬虫脚本就是用于解决这个问题的。直接更换url即可使用。</p>
-<pre><code class="language-python">import time
-
-import requests
-from bs4 import BeautifulSoup
-
-headers = {
-    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Accept-Language': 'en-US,zh-CN;q=0.8,zh;q=0.7,zh-TW;q=0.5,zh-HK;q=0.3,en;q=0.2',
-    'Connection': 'keep-alive',
-    'Host': 'cbs.centos.org',
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:79.0) Gecko/20100101 Firefox/79.0'
-}
-# Assign url to the address of the page you need to download 
-url = 'https://cbs.centos.org/kojifiles/packages/ceph/12.2.5/0.el7/aarch64/'
-
-
-def get_file_list():
-    response = session.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    # print(soup)
-    rst = []
-    for i in soup.find_all('a')[13:]:
-        rst.append(i['href'])
-    return rst
-
-
-def format_float(num):
-    return '{:.2f}'.format(num)
-
-
-def download_file(name, u, s):
-    r = s.get(u, stream=True)
-    length = float(r.headers['content-length'])
-    f = open(name, 'wb')
-    count = 0
-    count_tmp = 0
-    time1 = time.time()
-    for chunk in r.iter_content(chunk_size=512):
-        if chunk:
-            f.write(chunk)
-            count += len(chunk)
-            if time.time() - time1 &gt; 2:
-                p = count / length * 100
-                speed = (count - count_tmp) / 1024 / 1024 / 2
-                count_tmp = count
-                print(name + ': ' + format_float(p) + '%' + ' Speed: ' + format_float(speed) + 'M/S')
-                time1 = time.time()
-    f.close()
-
-
-if __name__ == '__main__':
-    session = requests.Session()
-    session.headers = headers
-    file_list = get_file_list()
-    for i in file_list:
-        download_file(i, url + i, session)
+              <p>在自动化UI测试的过程中，我们经常需要对从用户界面获取的字符串进行断言。然而，这个流程可能会因为一些特殊的、不可见的字符而变得复杂。一个常见的例子就是HTML中的非换行空格（NBSP）。在用户界面上，这些字符可能是不可见的，但在HTML源代码或者测试的断言中，却可能会导致测试失败。失败后测试人员很难第一时间发现问题原因，因为这个字符在打印时显示为空白，查阅日志也无法发现异常。本文将讨论这个问题，以及如何在Python语言中解决这个问题。</p>
+<h2 id="不可见字符">不可见字符</h2>
+<p>在HTML中，NBSP是一种常见的特殊字符，用于控制文本的换行行为。尽管这种字符在前端页面上不显示，但在HTML源代码中，它是可见的。这可能会导致测试用例无法通过，因为预期的字符串和实际的字符串之间有着这种不可见的差异。这样的问题并不仅仅局限于NBSP，还可能包括其他的一些特殊字符，比如制表符（TAB）、换行符（LF）等等。更重要的是，NBSP与普通空格在HTML中的渲染行为不同，这可能导致潜在的页面布局问题。</p>
+<h2 id="如何在python中处理这些字符">如何在Python中处理这些字符</h2>
+<p>Python提供了一些工具，可以帮助我们处理这些不可见字符。例如，我们可以使用repr()函数，来获取一个对象的字符串表示。这个函数会将字符串中的所有特殊字符，包括NBSP，以转义序列的形式打印出来。</p>
+<pre><code class="language-python">print(repr(your_string))
 </code></pre>
+<p>通过这种方式，NBSP被打印出来，显示为<code>\xa0</code>，我们就可以清楚地看到字符串中的所有内容，包括那些在常规情况下看不见的特殊字符。<br>
+<img src="https://andychucs.github.io/post-images/1702195582707.png" alt="" loading="lazy"></p>
 
             </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://andychucs.github.io/post/linux-chong-qi-zhi-ding-ci-shu-jiao-ben/">
+                <a href="https://andychucs.github.io/post/flutter-bu-tong-ye-mian-zhi-jian-hu-xiang-diao-yong-setstate-de-fang-fa/">
                   <h3 class="post-title">
-                    Ubuntu Linux重启指定次数脚本
+                    Flutter不同页面之间互相调用setState的方法
                   </h3>
                 </a>
               </div>
