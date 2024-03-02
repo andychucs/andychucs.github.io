@@ -2,14 +2,14 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://andychucs.github.io</id>
     <title>Andy Blog</title>
-    <updated>2023-12-10T09:47:28.420Z</updated>
+    <updated>2024-03-02T04:52:05.432Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://andychucs.github.io"/>
     <link rel="self" href="https://andychucs.github.io/atom.xml"/>
     <subtitle>少即是多</subtitle>
     <logo>https://andychucs.github.io/images/avatar.png</logo>
     <icon>https://andychucs.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2023, Andy Blog</rights>
+    <rights>All rights reserved 2024, Andy Blog</rights>
     <entry>
         <title type="html"><![CDATA[Android应用安装失败：Package could not be assigned a valid UID]]></title>
         <id>https://andychucs.github.io/post/android-ying-yong-an-zhuang-shi-bai-package-could-not-be-assigned-a-valid-uid/</id>
@@ -348,20 +348,6 @@ options radeon cik_support=0
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[游戏设计思考-「硬编码」式的设计]]></title>
-        <id>https://andychucs.github.io/post/you-xi-she-ji-si-kao-ying-bian-ma-shi-de-she-ji/</id>
-        <link href="https://andychucs.github.io/post/you-xi-she-ji-si-kao-ying-bian-ma-shi-de-she-ji/">
-        </link>
-        <updated>2020-05-12T03:42:39.000Z</updated>
-        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
-<p>今天偶然看到这条历代刺客信条中跑酷的演变，写了一点关于游戏设计的思考，整理成此贴。并非什么观点结论，仅仅是一点思考。</p>
-<iframe src="https://player.bilibili.com/player.html?aid=668122701&bvid=BV1Ba4y1i7wz&cid=189552933&page=1" scrolling="auto" border="0" frameborder="no" framespacing="0" allowfullscreen="true" width="100%" height="400px"> </iframe>
-<h2 id="关于刺客信条系列跑酷变化的思考">关于刺客信条系列跑酷变化的思考</h2>
-<p>纵观历代刺客信条作品，抛开战斗系统和人物系统的变化，着眼核心要素之一的跑酷系统，早期的刺客信条在地图的设计上往往采用人工设计攀爬点，而新的刺客信条以复用建筑模型模型为主少量的剧情需要地形设计了攀爬点。如果把关卡地图设计比作编程，那么人工设计攀爬点就是硬编码，但是这种硬编码是有很大好处的。如果审视新旧刺客信条的跑酷视频，可以发现老版刺客信条依靠巧妙的攀爬点设计可以很快的在城市中穿梭，如升降机、晾衣杆、招牌、房梁、转角的吊灯，从堆放在墙边的杂物开始往建筑上方攀爬，每一步都有一个巧妙的着力点，整个过程流畅自然。而新版本特别是在起源之后，大量的房子模型复用，几乎每一个建筑的每一个地方都有完整的攀爬点，攀爬随心所欲，但是密集的攀爬点却使得效率大打折扣，没有了跑酷的那种潇洒流畅。</p>
-<p>游戏设计师巧妙的构思让游戏不像普通的计算机软件那样呆板，细致的安排玩家可以行进的线路可以安排进很多有趣刺激的镜头（例如使命召唤现代战争中的雪山攀岩），这可以很大程度提高游戏体验，虽然这样的设计使开发效率会降低，但是我认为设计者的有心安排恰恰是游戏的艺术性的一种体现。归根结底话题又回到了开放世界需要多少开放程度的问题上，回到了开放世界和线性游戏的不同上。</p>
-]]></content>
-    </entry>
-    <entry>
         <title type="html"><![CDATA[全国医院数据-中国医疗保险网爬虫]]></title>
         <id>https://andychucs.github.io/post/quan-guo-yi-yuan-shu-ju-zhong-guo-yi-liao-bao-xian-wang-pa-chong/</id>
         <link href="https://andychucs.github.io/post/quan-guo-yi-yuan-shu-ju-zhong-guo-yi-liao-bao-xian-wang-pa-chong/">
@@ -421,6 +407,31 @@ https://www.zgylbx.com/index.php?m=content&amp;c=index&amp;a=lists&amp;catid=106
             row_list.append(row)
             sub_row = False
     return row_list
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[像Python一样使用Dart（一）：列表生成 List comprehension]]></title>
+        <id>https://andychucs.github.io/post/xiang-python-yi-yang-shi-yong-dartyi-lie-biao-sheng-cheng-list-comprehension/</id>
+        <link href="https://andychucs.github.io/post/xiang-python-yi-yang-shi-yong-dartyi-lie-biao-sheng-cheng-list-comprehension/">
+        </link>
+        <updated>2020-05-02T15:59:24.000Z</updated>
+        <content type="html"><![CDATA[<p>Dart语言里，列表生成的一般方式是使用List的generate构造函数：</p>
+<pre><code class="language-dart">new List&lt;int&gt;.generate(3, (int index) =&gt; index * index); // [0, 1, 4]
+</code></pre>
+<p>又是匿名函数又是胖箭头，看起来很不优雅。<br>
+既然Dart被称为Python+Java/Kotlin，Python那样的列表生成表达式也是有的：</p>
+<pre><code class="language-python">[i*i for i in range(0,3)] #python
+</code></pre>
+<pre><code class="language-dart">[for (var i = 0; i &lt; 3; i+=1 ) i*i]
+</code></pre>
+<p>如果需要枚举的对象是LIst和Set，还可以用for-in迭代，看起来更像了：</p>
+<pre><code class="language-dart">[for (var i in [0,1,2] ) i*i]
+</code></pre>
+<p>使用这种写法需要<a href="https://dart.cn/tools/diagnostic-messages#sdk_version_ui_as_code">Dart 2.3.0</a>，在Flutter项目中，需要更改pubspec.yaml：</p>
+<pre><code class="language-yaml">environment:
+  sdk: &quot;&gt;=2.2.2 &lt;3.0.0&quot;
+# 这里是AndroidStudio自动修改的，似乎最低版本大于等于2.2.0即可。
 </code></pre>
 ]]></content>
     </entry>
